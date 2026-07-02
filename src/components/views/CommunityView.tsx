@@ -271,7 +271,7 @@ export function CommunityView({ onNavigate, onNavigateToForm, currentUser }: Com
             <div className="lg:col-span-8 space-y-8 text-white/90">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="space-y-3 font-sans">
-                  <h4 className="font-bold text-sm border-b border-white/20 pb-1.5 uppercase tracking-wider font-mono text-white/80">Kriteria:</h4>
+                  <h4 className="font-bold text-sm border-b border-white/20 pb-1.5 uppercase tracking-wider font-sans text-white/80">Kriteria:</h4>
                   <ul className="space-y-2 text-xs">
                     <li>• Mahasiswa aktif atau baru lulus</li>
                     <li>• Aktif di media sosial (min. 1000 followers)</li>
@@ -280,7 +280,7 @@ export function CommunityView({ onNavigate, onNavigateToForm, currentUser }: Com
                   </ul>
                 </div>
                 <div className="space-y-3 font-sans">
-                  <h4 className="font-bold text-sm border-b border-white/20 pb-1.5 uppercase tracking-wider font-mono text-white/80">Tugas:</h4>
+                  <h4 className="font-bold text-sm border-b border-white/20 pb-1.5 uppercase tracking-wider font-sans text-white/80">Tugas:</h4>
                   <ul className="space-y-2 text-xs">
                     <li>• Mempromosikan program RISE di media sosial</li>
                     <li>• Menjadi perwakilan di distrik/kampus</li>
