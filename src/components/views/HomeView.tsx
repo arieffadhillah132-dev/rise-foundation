@@ -29,7 +29,11 @@ export function HomeView({ onNavigate, currentUser }: HomeViewProps) {
     visible: {
       opacity: 1,
       y: 0,
+<<<<<<< HEAD
       transition: { duration: 0.4 }
+=======
+      transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }
+>>>>>>> fcde04f04ab142c0977eba58848d7f5e1088328b
     }
   } as const;
 

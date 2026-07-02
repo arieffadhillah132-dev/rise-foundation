@@ -9,7 +9,7 @@ import { UserRole } from '../../types';
 
 interface AuthViewProps {
   onNavigate: (route: string) => void;
-  onLoginSuccess: (user: any) => void;
+  onLoginSuccess: (user: any, token: string) => void;
   initialMode?: 'login' | 'register';
 }
 
@@ -49,20 +49,27 @@ export function AuthView({ onNavigate, onLoginSuccess, initialMode = 'login' }: 
     }
   ];
 
-  const handleInstantLogin = (demo: typeof DEMO_ACCOUNTS[0]) => {
-    const mockUser = {
-      id: 'usr-demo-' + demo.role + '-' + Math.random().toString(36).substr(2, 4),
-      fullName: demo.fullName,
-      email: demo.email,
-      phoneNumber: '081299998888',
-      role: demo.role,
-      persona: demo.persona,
-      createdAt: new Date().toLocaleDateString('id-ID')
-    };
-    onLoginSuccess(mockUser);
+  const handleInstantLogin = async (demo: typeof DEMO_ACCOUNTS[0]) => {
+    setErrorMsg('');
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: demo.email, password: 'password123' })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        onLoginSuccess(data.user, data.token);
+      } else {
+        const errData = await res.json();
+        setErrorMsg(errData.message || 'Gagal login demo.');
+      }
+    } catch (err) {
+      setErrorMsg('Koneksi internet bermasalah.');
+    }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg('');
 
@@ -72,39 +79,44 @@ export function AuthView({ onNavigate, onLoginSuccess, initialMode = 'login' }: 
         return;
       }
       
-      // Check if email matches any demo accounts for exact configuration
-      const matchedDemo = DEMO_ACCOUNTS.find(d => d.email.toLowerCase() === email.toLowerCase());
-      if (matchedDemo) {
-        handleInstantLogin(matchedDemo);
-        return;
+      try {
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          onLoginSuccess(data.user, data.token);
+        } else {
+          const errData = await res.json();
+          setErrorMsg(errData.message || 'Gagal masuk. Periksa email & password Anda.');
+        }
+      } catch (err) {
+        setErrorMsg('Koneksi internet bermasalah.');
       }
-
-      // Fallback simple credentials simulator
-      const mockUser = {
-        id: 'usr-' + Math.random().toString(36).substr(2, 9),
-        fullName: email.split('@')[0].toUpperCase(),
-        email: email,
-        phoneNumber: '08123456789',
-        role: (email.includes('admin') ? 'admin' : 'visitor') as UserRole,
-        persona: 'mahasiswa',
-        createdAt: new Date().toLocaleDateString('id-ID')
-      };
-      onLoginSuccess(mockUser);
     } else {
       if (!fullName || !email || !password || !phoneNumber) {
         setErrorMsg('Semua kolom wajib diisi.');
         return;
       }
-      const mockUser = {
-        id: 'usr-' + Math.random().toString(36).substr(2, 9),
-        fullName: fullName,
-        email: email,
-        phoneNumber: phoneNumber,
-        role: role,
-        persona: persona,
-        createdAt: new Date().toLocaleDateString('id-ID')
-      };
-      onLoginSuccess(mockUser);
+
+      try {
+        const res = await fetch('/api/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ fullName, email, password, phoneNumber, role, persona })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          onLoginSuccess(data.user, data.token);
+        } else {
+          const errData = await res.json();
+          setErrorMsg(errData.message || 'Gagal mendaftar akun.');
+        }
+      } catch (err) {
+        setErrorMsg('Koneksi internet bermasalah.');
+      }
     }
   };
 
