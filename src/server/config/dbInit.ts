@@ -1,15 +1,10 @@
-<<<<<<< HEAD
-export async function initializeDatabase(): Promise<void> {
-  // Stub database initializer for development.
-  return;
-=======
 import mysql from 'mysql2/promise';
 import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-export async function initializeDatabase() {
+export async function initializeDatabase(): Promise<void> {
   const host = process.env.DB_HOST || 'localhost';
   const user = process.env.DB_USER || 'root';
   const password = process.env.DB_PASSWORD || '';
@@ -163,5 +158,4 @@ export async function initializeDatabase() {
 
   await dbConnection.end();
   console.log('Database initialization completed!');
->>>>>>> fcde04f04ab142c0977eba58848d7f5e1088328b
 }

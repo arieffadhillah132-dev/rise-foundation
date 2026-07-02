@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-import express from 'express';
-
-const router = express.Router();
-
-router.get('/', (req, res) => {
-  res.json({ message: 'Auth route stub' });
-});
-=======
 import { Router } from 'express';
 import {
   register,
@@ -32,6 +23,5 @@ router.patch('/registrations/:id/status', authMiddleware, adminMiddleware, updat
 // Sponsor inquiries handling
 router.get('/inquiries', authMiddleware, adminMiddleware, getSponsorInquiries);
 router.post('/inquiries', createSponsorInquiry);
->>>>>>> fcde04f04ab142c0977eba58848d7f5e1088328b
 
 export default router;
