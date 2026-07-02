@@ -223,7 +223,7 @@ export function AcademyView({ onNavigate, onNavigateToForm }: AcademyViewProps) 
         <section className="py-12 px-4 bg-white">
           <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
             <div>
-              <h2 class="font-bold text-2xl mb-6 text-gray-900">Jadwal Pendaftaran</h2>
+              <h2 className="font-bold text-2xl mb-6 text-gray-900">Jadwal Pendaftaran</h2>
               <div className="space-y-4">
                 <div className="flex items-center gap-4 p-4 bg-orange-50 rounded-xl border border-orange-100/60">
                   <Calendar className="w-6 h-6 text-brand-orange shrink-0" />

@@ -54,51 +54,70 @@ export default function App() {
   const [isLibraryMember, setIsLibraryMember] = useState<boolean>(false);
 
   // 3. SEEDED DATABASE STATES
-  const [registrations, setRegistrations] = useState<Registration[]>([
-    {
-      id: 'reg-001',
-      userId: 'usr-default',
-      programType: 'scholarship',
-      programId: 'schol-prestasi',
-      programName: 'Beasiswa Unggulan Prestasi RISE 2026',
-      status: 'submitted',
-      submittedAt: '2026-06-25',
-      details: { gpaScore: '89', essayContent: 'Memajukan literasi sains dan AI di Indonesia.' }
-    },
-    {
-      id: 'reg-002',
-      userId: 'usr-default',
-      programType: 'camp_training',
-      programId: 'camp-frontend',
-      programName: 'Intensive Frontend React & Tailwind Web Bootcamp',
-      status: 'accepted',
-      submittedAt: '2026-06-20',
-      details: { experienceLevel: 'Beginner' }
-    }
-  ]);
+  const [registrations, setRegistrations] = useState<Registration[]>([]);
+  const [loans, setLoans] = useState<LoanRequest[]>([]);
+  const [sponsorInquiries, setSponsorInquiries] = useState<SponsorInquiry[]>([]);
 
-  const [loans, setLoans] = useState<LoanRequest[]>([
-    {
-      id: 'loan-001',
-      userId: 'usr-default',
-      bookId: 'book-kiat',
-      bookTitle: 'Kiat Sukses Memperoleh Beasiswa Pendidikan Dunia',
-      status: 'borrowed',
-      loanDate: '2026-06-28'
-    }
-  ]);
+  // 3b. API UTILS & STARTUP SYNC
+  const fetchDashboardData = async (token: string, userRole: string) => {
+    try {
+      const headers = { 'Authorization': `Bearer ${token}` };
 
-  const [sponsorInquiries, setSponsorInquiries] = useState<SponsorInquiry[]>([
-    {
-      id: 'inq-001',
-      companyName: 'PT TechSustain Corp',
-      contactName: 'Fahmi Ramadhan',
-      email: 'fahmi@techsustain.com',
-      phone: '08123456789',
-      notes: 'Tertarik menjadi sponsor utama Beasiswa Kemitraan Korporat RISE 2026.',
-      submittedAt: '2026-06-29'
+      // Fetch registrations
+      const regRes = await fetch('/api/auth/registrations', { headers });
+      if (regRes.ok) {
+        const regs = await regRes.json();
+        setRegistrations(regs);
+      }
+
+      // Fetch loans
+      const loanRes = await fetch('/api/library/loans', { headers });
+      if (loanRes.ok) {
+        const ln = await loanRes.json();
+        setLoans(ln);
+      }
+
+      // Fetch membership status
+      const memRes = await fetch('/api/library/membership', { headers });
+      if (memRes.ok) {
+        const data = await memRes.json();
+        setIsLibraryMember(data.isMember);
+      }
+
+      // Fetch sponsor inquiries if admin
+      if (userRole === 'admin') {
+        const inqRes = await fetch('/api/auth/inquiries', { headers });
+        if (inqRes.ok) {
+          const inq = await inqRes.json();
+          setSponsorInquiries(inq);
+        }
+      }
+    } catch (err) {
+      console.error('Error fetching dashboard data:', err);
     }
-  ]);
+  };
+
+  React.useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      fetch('/api/auth/me', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      })
+        .then(res => {
+          if (res.ok) return res.json();
+          throw new Error('Invalid token');
+        })
+        .then(user => {
+          setCurrentUser(user);
+          fetchDashboardData(token, user.role);
+        })
+        .catch(err => {
+          console.error(err);
+          localStorage.removeItem('token');
+          setCurrentUser(null);
+        });
+    }
+  }, []);
 
   // 4. ALERTS / TOAST STATE
   const [activeToast, setActiveToast] = useState<ToastMessage | null>(null);
@@ -155,7 +174,11 @@ export default function App() {
   };
 
   // 6. SHARED STATE SYNCHRONIZATION MUTATORS
-  const handleLoginSuccess = (userObj: any) => {
+  const handleLoginSuccess = (userObj: any, token?: string) => {
+    if (token) {
+      localStorage.setItem('token', token);
+      fetchDashboardData(token, userObj.role);
+    }
     setCurrentUser(userObj);
     showToast(`Selamat datang kembali, ${userObj.fullName}!`, 'success');
     
@@ -183,102 +206,198 @@ export default function App() {
   };
 
   const handleLogout = () => {
+    localStorage.removeItem('token');
     setCurrentUser(null);
     setIsLibraryMember(false);
+    setRegistrations([]);
+    setLoans([]);
+    setSponsorInquiries([]);
     showToast('Sesi Anda telah keluar secara aman.', 'info');
     handleNavigate('/');
   };
 
-  const handleRoleSwitch = (newRole: UserRole) => {
+  const handleRoleSwitch = async (newRole: UserRole) => {
     setIsLibraryMember(false);
-    if (newRole === 'visitor') {
-      setCurrentUser({
-        id: 'usr-default',
-        fullName: 'Maharani Syifatania',
-        email: 'maharani@rise.org',
-        phoneNumber: '081299998888',
-        role: 'visitor',
-        persona: 'siswa_sma',
-        createdAt: '15/06/2026'
+    const email = newRole === 'admin' ? 'admin@rise.org' : 'maharani@rise.org';
+    const password = 'password123';
+    
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
       });
-      showToast('Berhasil mengubah simulasi ke peran Pengunjung (Siswa / Sponsor / Umum)!', 'success');
-    } else if (newRole === 'admin') {
-      setCurrentUser({
-        id: 'usr-admin',
-        fullName: 'Evi Lestari',
-        email: 'admin@rise.org',
-        phoneNumber: '081122223333',
-        role: 'admin',
-        persona: 'mitra',
-        createdAt: '01/01/2026'
-      });
-      showToast('HAK AKSES ADMINISTRATOR DIBUKA: Anda kini dapat menyaring berkas siswa!', 'success');
+      if (res.ok) {
+        const data = await res.json();
+        handleLoginSuccess(data.user, data.token);
+      } else {
+        showToast('Gagal beralih peran simulasi.', 'error');
+      }
+    } catch (err) {
+      showToast('Koneksi internet bermasalah.', 'error');
     }
-    handleNavigate('/dashboard');
   };
 
-  const handleAddRegistration = (programType: ProgramType, programId: string, programName: string, details: any) => {
-    if (!currentUser) return;
+  const handleAddRegistration = async (programType: ProgramType, programId: string, programName: string, details: any) => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
 
-    const newReg: Registration = {
-      id: 'reg-' + Math.random().toString(36).substr(2, 5).toUpperCase(),
-      userId: currentUser.id,
-      programType,
-      programId,
-      programName,
-      status: 'submitted',
-      submittedAt: new Date().toISOString().split('T')[0],
-      details
-    };
+    let url = '/api/academy/apply';
+    let bodyData: any = { programId, programName, details };
 
-    setRegistrations(prev => [newReg, ...prev]);
-    showToast(`Registrasi Anda untuk "${programName}" berhasil dikirim! Tinjau statusnya di dashboard.`, 'success');
+    if (programType === 'scholarship') {
+      url = '/api/scholarship/apply';
+    } else if (programType === 'camp_training' || programType === 'volunteer' || programType === 'brand_ambassador') {
+      url = '/api/camp/apply';
+      bodyData = { programType, programId, programName, details };
+    }
+
+    try {
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(bodyData)
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        setRegistrations(prev => [data.registration, ...prev]);
+        showToast(`Registrasi Anda untuk "${programName}" berhasil dikirim! Tinjau statusnya di dashboard.`, 'success');
+      } else {
+        const errData = await res.json();
+        showToast(errData.message || 'Gagal mengirim pendaftaran.', 'error');
+      }
+    } catch (err) {
+      showToast('Koneksi internet bermasalah.', 'error');
+    }
   };
 
-  const handleAddLoan = (bookId: string, bookTitle: string) => {
-    if (!currentUser) return;
+  const handleAddLoan = async (bookId: string, bookTitle: string) => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
 
-    const newLoan: LoanRequest = {
-      id: 'loan-' + Math.random().toString(36).substr(2, 5).toUpperCase(),
-      userId: currentUser.id,
-      bookId,
-      bookTitle,
-      status: 'pending',
-      loanDate: new Date().toISOString().split('T')[0]
-    };
+    try {
+      const res = await fetch('/api/library/loans', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ bookId, bookTitle })
+      });
 
-    setLoans(prev => [newLoan, ...prev]);
-    showToast(`Permohonan pinjam buku "${bookTitle}" berhasil dikirim!`, 'success');
+      if (res.ok) {
+        const data = await res.json();
+        setLoans(prev => [data.loan, ...prev]);
+        showToast(`Permohonan pinjam buku "${bookTitle}" berhasil dikirim!`, 'success');
+      } else {
+        const errData = await res.json();
+        showToast(errData.message || 'Gagal mengajukan pinjaman.', 'error');
+      }
+    } catch (err) {
+      showToast('Koneksi internet bermasalah.', 'error');
+    }
   };
 
-  const handleJoinMember = () => {
-    setIsLibraryMember(true);
-    showToast('Keanggotaan perpustakaan digital Anda berhasil diaktifkan!', 'success');
+  const handleJoinMember = async () => {
+    const token = localStorage.getItem('token');
+    if (!token || !currentUser) return;
+
+    try {
+      const res = await fetch('/api/library/membership', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          memberName: currentUser.fullName,
+          memberEmail: currentUser.email
+        })
+      });
+
+      if (res.ok) {
+        setIsLibraryMember(true);
+        showToast('Keanggotaan perpustakaan digital Anda berhasil diaktifkan!', 'success');
+      } else {
+        showToast('Gagal mengaktifkan keanggotaan.', 'error');
+      }
+    } catch (err) {
+      showToast('Koneksi internet bermasalah.', 'error');
+    }
   };
 
-  const handleAddInquiry = (companyName: string, contactName: string, email: string, phone: string, notes: string) => {
-    const newInq: SponsorInquiry = {
-      id: 'inq-' + Math.random().toString(36).substr(2, 5).toUpperCase(),
-      companyName,
-      contactName,
-      email,
-      phone,
-      notes,
-      submittedAt: new Date().toISOString().split('T')[0]
-    };
+  const handleAddInquiry = async (companyName: string, contactName: string, email: string, phone: string, notes: string) => {
+    try {
+      const res = await fetch('/api/auth/inquiries', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ companyName, contactName, email, phone, notes })
+      });
 
-    setSponsorInquiries(prev => [newInq, ...prev]);
-    showToast('Proposal kerja sama sponsorship Anda berhasil dikirim ke Komite RISE!', 'success');
+      if (res.ok) {
+        const data = await res.json();
+        setSponsorInquiries(prev => [data.inquiry, ...prev]);
+        showToast('Proposal kerja sama sponsorship Anda berhasil dikirim ke Komite RISE!', 'success');
+      } else {
+        showToast('Gagal mengirim proposal sponsorship.', 'error');
+      }
+    } catch (err) {
+      showToast('Koneksi internet bermasalah.', 'error');
+    }
   };
 
-  const handleUpdateRegistrationStatus = (regId: string, newStatus: 'submitted' | 'in_review' | 'accepted' | 'rejected') => {
-    setRegistrations(prev => prev.map(reg => reg.id === regId ? { ...reg, status: newStatus } : reg));
-    showToast(`Status berkas registrasi #${regId} berhasil diubah menjadi: ${newStatus.toUpperCase()}`, 'success');
+  const handleUpdateRegistrationStatus = async (regId: string, newStatus: 'submitted' | 'in_review' | 'accepted' | 'rejected') => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    try {
+      const res = await fetch(`/api/auth/registrations/${regId}/status`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ status: newStatus })
+      });
+
+      if (res.ok) {
+        setRegistrations(prev => prev.map(reg => reg.id === regId ? { ...reg, status: newStatus } : reg));
+        showToast(`Status berkas registrasi #${regId} berhasil diubah menjadi: ${newStatus.toUpperCase()}`, 'success');
+      } else {
+        showToast('Gagal memperbarui status pendaftaran.', 'error');
+      }
+    } catch (err) {
+      showToast('Koneksi internet bermasalah.', 'error');
+    }
   };
 
-  const handleUpdateLoanStatus = (loanId: string, newStatus: 'pending' | 'borrowed' | 'returned' | 'overdue') => {
-    setLoans(prev => prev.map(loan => loan.id === loanId ? { ...loan, status: newStatus } : loan));
-    showToast(`Status peminjaman buku #${loanId} diperbarui: ${newStatus.toUpperCase()}`, 'success');
+  const handleUpdateLoanStatus = async (loanId: string, newStatus: 'pending' | 'borrowed' | 'returned' | 'overdue') => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    try {
+      const res = await fetch(`/api/library/loans/${loanId}/status`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ status: newStatus })
+      });
+
+      if (res.ok) {
+        setLoans(prev => prev.map(loan => loan.id === loanId ? { ...loan, status: newStatus } : loan));
+        showToast(`Status peminjaman buku #${loanId} diperbarui: ${newStatus.toUpperCase()}`, 'success');
+      } else {
+        showToast('Gagal memperbarui status peminjaman.', 'error');
+      }
+    } catch (err) {
+      showToast('Koneksi internet bermasalah.', 'error');
+    }
   };
 
   // 7. ROUTING DISPATCH CANVAS
