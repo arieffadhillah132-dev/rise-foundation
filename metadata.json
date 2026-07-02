@@ -1,0 +1,6 @@
+{
+  "name": "RISE Foundation",
+  "description": "An Integrated Education Digital Ecosystem providing formal schooling information, skill-based camps, community empowerment, and career growth.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
