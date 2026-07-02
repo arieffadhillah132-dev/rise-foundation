@@ -255,7 +255,7 @@ export function FormView({ programType, programId, onNavigate, currentUser, onAd
             {/* Dynamic Inputs: Academy */}
             {programType === 'academy' && (
               <div className="space-y-4">
-                <h3 className="text-xs font-bold tracking-wider text-brand-grey uppercase font-mono border-b border-gray-100 pb-2">Formulir Pendaftaran</h3>
+                <h3 className="text-xs font-bold tracking-wider text-brand-grey uppercase font-sans border-b border-gray-100 pb-2">Formulir Pendaftaran</h3>
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1">

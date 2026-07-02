@@ -358,7 +358,7 @@ export function DashboardView({
                   </div>
 
                   {/* Card Footer Code */}
-                  <div className="pt-4 border-t border-white/10 flex justify-between items-end text-[10px] font-mono text-gray-300">
+                  <div className="pt-4 border-t border-white/10 flex justify-between items-end text-[10px] font-sans text-gray-300">
                     <div>
                       <p className="text-[8px] text-gray-500 uppercase tracking-widest">Nomor Anggota</p>
                       <p className="font-bold tracking-widest text-white">RISE-MEMBER-{currentUser?.id.split('-')[1]?.toUpperCase() || 'A78B'}</p>
