@@ -6,6 +6,9 @@
   "scripts": {
     "dev": "tsx server.ts",
     "build": "vite build",
+    "build:server": "esbuild server.ts --bundle --platform=node --target=node18 --outfile=server.js",
+    "start": "node server.js",
+    "start:dev": "tsx server.ts",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "preview": "vite preview",
