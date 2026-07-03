@@ -1,37 +1,42 @@
+import { handleApiError, methodNotAllowed, requireUser } from '../_lib/auth.js';
+import { ensureDatabase, getPool, parseJsonField, toDateString } from '../_lib/database.js';
+
 export default async function handler(req, res) {
   if (req.method !== 'GET') {
-    res.setHeader('Allow', ['GET']);
-    return res.status(405).json({ message: 'Method not allowed' });
+    return methodNotAllowed(res, ['GET']);
   }
 
-  const demo = [
-    {
-      id: 'reg-001',
-      userId: 'usr-abc123',
-      programType: 'academy',
-      programId: 'academy-001',
-      programName: 'RISE Academy - Sekolah Dasar',
-      status: 'in_review',
-      submittedAt: '2026-07-01',
-      details: {
-        studentName: 'Budi Santoso',
-        parentName: 'Ibu Siti',
-        address: 'Jl. Merdeka No. 10',
-        registeredClass: 'Kelas 5',
-        wave: 'Gelombang 1 - 2026'
-      }
-    },
-    {
-      id: 'reg-002',
-      userId: 'usr-def456',
-      programType: 'camp',
-      programId: 'camp-frontend',
-      programName: 'RISE Camp - Web Programming',
-      status: 'accepted',
-      submittedAt: '2026-06-22',
-      details: { }
-    }
-  ];
+  try {
+    await ensureDatabase();
 
-  return res.json(demo);
+    const user = requireUser(req);
+    const db = getPool();
+    const query = `
+      SELECT
+        id,
+        user_id as userId,
+        program_type as programType,
+        program_id as programId,
+        program_name as programName,
+        status,
+        registered_class as registeredClass,
+        wave,
+        created_at as submittedAt,
+        details
+      FROM registrations
+      ${user.role === 'admin' ? '' : 'WHERE user_id = ?'}
+      ORDER BY created_at DESC
+    `;
+    const [registrations] = await db.query(query, user.role === 'admin' ? [] : [user.id]);
+
+    return res.json(
+      registrations.map((registration) => ({
+        ...registration,
+        submittedAt: toDateString(registration.submittedAt),
+        details: parseJsonField(registration.details),
+      })),
+    );
+  } catch (err) {
+    return handleApiError(res, err, 'Error fetching registrations.');
+  }
 }

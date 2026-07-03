@@ -1,22 +1,26 @@
-import jwt from 'jsonwebtoken';
-
-const JWT_SECRET = process.env.JWT_SECRET || 'rise_foundation_super_secret_jwt_key_2026';
+import { handleApiError, mapUser, methodNotAllowed, requireUser } from '../_lib/auth.js';
+import { ensureDatabase, getPool } from '../_lib/database.js';
 
 export default async function handler(req, res) {
   if (req.method !== 'GET') {
-    res.setHeader('Allow', ['GET']);
-    return res.status(405).json({ message: 'Method not allowed' });
+    return methodNotAllowed(res, ['GET']);
   }
 
-  const auth = req.headers.authorization || '';
-  const token = auth.startsWith('Bearer ') ? auth.slice(7) : null;
-  if (!token) return res.status(401).json({ message: 'Missing token' });
-
   try {
-    const decoded = jwt.verify(token, JWT_SECRET);
-    return res.json({ user: decoded });
+    await ensureDatabase();
+
+    const decoded = requireUser(req);
+    const [users] = await getPool().query(
+      'SELECT id, email, full_name, phone_number, role, persona, created_at FROM users WHERE id = ?',
+      [decoded.id],
+    );
+
+    if (users.length === 0) {
+      return res.status(404).json({ message: 'User not found.' });
+    }
+
+    return res.json(mapUser(users[0]));
   } catch (err) {
-    console.error('Serverless /me token error:', err);
-    return res.status(401).json({ message: 'Invalid token' });
+    return handleApiError(res, err, 'Error retrieving user profile.');
   }
 }
