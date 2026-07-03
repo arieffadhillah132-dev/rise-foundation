@@ -5,6 +5,7 @@
 
 import React, { useState } from 'react';
 import { Award, Users, MessagesSquare, Calendar, CheckCircle2, User, Send, ArrowRight, MessageCircle } from 'lucide-react';
+import communityHeroBg from '../../assets/images/community_hero_bg_1783074438056.jpg';
 
 interface ThreadPost {
   author: string;
@@ -110,13 +111,24 @@ export function CommunityView({ onNavigate, onNavigateToForm, currentUser }: Com
   return (
     <div className="bg-white min-h-screen font-sans">
       
-      {/* SECTION 1: HEADER BANNER (Soft Warm Tint - matches Screenshot 2) */}
-      <div className="bg-[#FFF8F3] py-16 border-b border-orange-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4 animate-fade-in">
-          <h1 className="font-serif font-bold text-4xl sm:text-5xl text-[#1E293B]">
+      {/* SECTION 1: HEADER BANNER with Community Background Image */}
+      <div className="relative py-20 px-4 overflow-hidden bg-slate-950 flex items-center min-h-[40vh] justify-center text-center">
+        {/* Background Image of Community */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src={communityHeroBg} 
+            alt="RISE Community Background" 
+            className="w-full h-full object-cover object-center opacity-55 filter brightness-95" 
+            referrerPolicy="no-referrer"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/65 to-slate-950/80"></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4 relative z-10 w-full animate-fade-in">
+          <h1 className="font-serif font-bold text-4xl sm:text-5xl text-white tracking-tight">
             RISE Community
           </h1>
-          <p className="text-sm sm:text-base text-gray-500 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base text-gray-200 max-w-2xl mx-auto leading-relaxed font-medium">
             Bersama menciptakan dampak nyata melalui aksi sosial dan kolaborasi
           </p>
         </div>
@@ -271,7 +283,7 @@ export function CommunityView({ onNavigate, onNavigateToForm, currentUser }: Com
             <div className="lg:col-span-8 space-y-8 text-white/90">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="space-y-3 font-sans">
-                  <h4 className="font-bold text-sm border-b border-white/20 pb-1.5 uppercase tracking-wider font-sans text-white/80">Kriteria:</h4>
+                  <h4 className="font-bold text-sm border-b border-white/20 pb-1.5 uppercase tracking-wider font-mono text-white/80">Kriteria:</h4>
                   <ul className="space-y-2 text-xs">
                     <li>• Mahasiswa aktif atau baru lulus</li>
                     <li>• Aktif di media sosial (min. 1000 followers)</li>
@@ -280,7 +292,7 @@ export function CommunityView({ onNavigate, onNavigateToForm, currentUser }: Com
                   </ul>
                 </div>
                 <div className="space-y-3 font-sans">
-                  <h4 className="font-bold text-sm border-b border-white/20 pb-1.5 uppercase tracking-wider font-sans text-white/80">Tugas:</h4>
+                  <h4 className="font-bold text-sm border-b border-white/20 pb-1.5 uppercase tracking-wider font-mono text-white/80">Tugas:</h4>
                   <ul className="space-y-2 text-xs">
                     <li>• Mempromosikan program RISE di media sosial</li>
                     <li>• Menjadi perwakilan di distrik/kampus</li>

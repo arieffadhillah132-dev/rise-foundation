@@ -59,7 +59,7 @@ export const SCHOLARSHIPS: Scholarship[] = [
       'Memiliki sertifikat kejuaraan minimal tingkat Kabupaten/Kota (Akademik maupun Non-Akademik)',
       'Lolos tes wawancara kepribadian & tes potensi akademik'
     ],
-    deadline: '2026-08-31',
+    deadline: '2027-08-31',
     quota: 15,
     benefit: 'Pembebasan uang gedung 100%, bantuan biaya buku per semester, dan pembinaan intensif kepemimpinan.'
   },
@@ -71,7 +71,7 @@ export const SCHOLARSHIPS: Scholarship[] = [
       'Rata-rata nilai rapor minimal 75',
       'Menulis esai motivasi bertema "Mimpi Saya untuk Memajukan Pendidikan Indonesia"'
     ],
-    deadline: '2026-07-25',
+    deadline: '2027-07-25',
     quota: 25,
     benefit: 'Subsidi biaya SPP sekolah bulanan 100%, gratis perangkat belajar e-book, dan bantuan uang saku transportasi.'
   },
@@ -83,7 +83,7 @@ export const SCHOLARSHIPS: Scholarship[] = [
       'Memiliki minat tinggi pada bidang Rekayasa Perangkat Lunak atau Ilmu Komputer',
       'Melampirkan portofolio karya digital (aplikasi, web sederhana, atau tulisan esai sains)'
     ],
-    deadline: '2026-09-15',
+    deadline: '2027-09-15',
     quota: 10,
     benefit: 'Bantuan studi penuh selama 1 tahun ajaran, pendampingan langsung oleh praktisi IT, dan prioritas penempatan magang.'
   }

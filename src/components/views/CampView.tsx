@@ -5,6 +5,10 @@
 
 import React, { useState } from 'react';
 import { CAMP_TRAININGS, CAREERS } from '../../data';
+import campHeroBg from '../../assets/images/rise_camp_hero_bg_1783073952203.jpg';
+import englishBg from '../../assets/images/camp_english_bg_1783073965741.jpg';
+import frontendBg from '../../assets/images/camp_frontend_bg_1783073979435.jpg';
+import speakBg from '../../assets/images/camp_speak_bg_1783073990339.jpg';
 import { 
   ArrowLeft, 
   Calendar, 
@@ -271,6 +275,7 @@ export function CampView({
     let duration = '12 minggu';
     let location = 'Online & Offline';
     let mentor = 'Arthur Pendragon, M.Ed.';
+    let bgImage = englishBg;
 
     if (isEnglish) {
       title = 'Pelatihan Bahasa Inggris';
@@ -279,6 +284,7 @@ export function CampView({
       duration = '12 minggu';
       location = 'Online & Offline';
       mentor = 'Arthur Pendragon, M.Ed. (Certified IELTS Examiner)';
+      bgImage = englishBg;
     } else if (isFrontend) {
       title = 'Web Programming';
       gradient = 'from-purple-400 to-purple-600';
@@ -286,6 +292,7 @@ export function CampView({
       duration = '16 minggu';
       location = 'Online';
       mentor = 'Fahmi Ramadhan, S.Kom. (Senior Web Architect)';
+      bgImage = frontendBg;
     } else if (isSpeak) {
       title = 'Kepemimpinan';
       gradient = 'from-amber-400 to-amber-600';
@@ -293,6 +300,7 @@ export function CampView({
       duration = '8 minggu';
       location = 'Offline';
       mentor = 'Nadia Amalia, M.A. (Chief Communications Specialist)';
+      bgImage = speakBg;
     }
 
     const detailData = trainingDetailsMap[trainingId] || {
@@ -304,12 +312,23 @@ export function CampView({
 
     return (
       <div className="font-sans bg-white pb-16">
-        {/* Banner/Hero Section */}
-        <section className="bg-gradient-to-br from-green-50 to-white py-12 px-4 relative overflow-hidden border-b border-gray-100">
-          <div className="max-w-6xl mx-auto relative z-10">
+        {/* Banner/Hero Section with Custom Training Background */}
+        <section className="relative py-20 px-4 overflow-hidden bg-slate-950 flex items-center min-h-[35vh]">
+          {/* Background Image with Gradient Overlay */}
+          <div className="absolute inset-0 z-0">
+            <img 
+              src={bgImage} 
+              alt={`${title} Background`} 
+              className="w-full h-full object-cover object-center opacity-60 filter brightness-95"
+              referrerPolicy="no-referrer"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/65 to-slate-950/80"></div>
+          </div>
+
+          <div className="max-w-6xl mx-auto relative z-10 w-full">
             <button 
               onClick={() => setSelectedTrainingId(null)} 
-              className="flex items-center gap-2 text-brand-orange mb-6 hover:underline font-medium text-sm cursor-pointer"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-orange-300 hover:text-white transition-colors bg-black/35 hover:bg-black/50 px-3.5 py-1.5 rounded-full border border-white/10 mb-6 cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4" /> Kembali ke RISE Camp
             </button>
@@ -317,8 +336,8 @@ export function CampView({
               <span className="text-xs bg-brand-green text-white px-3 py-1 rounded-full font-medium">★ Program Unggulan</span>
               <span className="text-xs bg-emerald-50 text-brand-green border border-emerald-100 px-3 py-1 rounded-full font-semibold">Sedang Berlangsung</span>
             </div>
-            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-gray-900 mb-2">{title}</h1>
-            <p className="text-gray-600 text-base sm:text-lg leading-relaxed max-w-2xl">
+            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-white mb-2">{title}</h1>
+            <p className="text-gray-200 text-base sm:text-lg leading-relaxed max-w-2xl font-medium">
               Tingkatkan daya saing global Anda bersama pengajar bersertifikat internasional dan modul pembelajaran terarah.
             </p>
           </div>
@@ -665,14 +684,25 @@ export function CampView({
   return (
     <div className="font-sans bg-white">
       
-      {/* Hero Banner Section */}
-      <section className="bg-gradient-to-br from-green-50 to-white py-16 px-4 border-b border-gray-100">
-        <div className="max-w-6xl mx-auto text-center space-y-4">
+      {/* Hero Banner Section with Camp Background */}
+      <section className="relative py-20 px-4 overflow-hidden bg-slate-950 flex items-center min-h-[40vh] justify-center text-center">
+        {/* Background Image of RISE Camp */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src={campHeroBg} 
+            alt="RISE Camp Background" 
+            className="w-full h-full object-cover object-center opacity-55 filter brightness-95" 
+            referrerPolicy="no-referrer"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/65 to-slate-950/80"></div>
+        </div>
+
+        <div className="max-w-6xl mx-auto relative z-10 w-full space-y-4">
           <span className="text-xs bg-brand-green text-white px-3 py-1 rounded-full font-medium mb-4 inline-block">
             ★ Program Unggulan
           </span>
-          <h1 className="font-serif text-4xl md:text-5xl font-bold text-gray-900 mb-4">RISE Camp</h1>
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
+          <h1 className="font-serif text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">RISE Camp</h1>
+          <p className="text-gray-200 text-lg max-w-2xl mx-auto leading-relaxed font-medium">
             Pelatihan keterampilan, pengembangan karir, dan kolaborasi industri untuk masa depanmu
           </p>
         </div>
@@ -691,8 +721,14 @@ export function CampView({
               {/* Card 1: Pelatihan Bahasa Inggris */}
               <div className="border border-gray-200 rounded-2xl overflow-hidden shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-orange/5 group flex flex-col justify-between bg-white">
                 <div>
-                  <div className="h-32 bg-gradient-to-r from-blue-400 to-blue-600 flex items-center justify-center">
-                    <span className="text-4xl">🌐</span>
+                  <div className="h-40 relative overflow-hidden flex items-center justify-center">
+                    <img 
+                      src={englishBg} 
+                      alt="Pelatihan Bahasa Inggris" 
+                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 filter brightness-90"
+                      referrerPolicy="no-referrer"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/20"></div>
                   </div>
                   <div className="p-5 space-y-2">
                     <span className="text-[10px] bg-[#DCFCE7] text-brand-green px-2.5 py-0.5 rounded-full font-semibold">
@@ -717,8 +753,14 @@ export function CampView({
               {/* Card 2: Web Programming */}
               <div className="border border-gray-200 rounded-2xl overflow-hidden shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-orange/5 group flex flex-col justify-between bg-white">
                 <div>
-                  <div className="h-32 bg-gradient-to-r from-purple-400 to-purple-600 flex items-center justify-center">
-                    <span className="text-4xl">💻</span>
+                  <div className="h-40 relative overflow-hidden flex items-center justify-center">
+                    <img 
+                      src={frontendBg} 
+                      alt="Web Programming" 
+                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 filter brightness-90"
+                      referrerPolicy="no-referrer"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/20"></div>
                   </div>
                   <div className="p-5 space-y-2">
                     <span className="text-[10px] bg-[#DCFCE7] text-brand-green px-2.5 py-0.5 rounded-full font-semibold">
@@ -743,8 +785,14 @@ export function CampView({
               {/* Card 3: Kepemimpinan */}
               <div className="border border-gray-200 rounded-2xl overflow-hidden shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-orange/5 group flex flex-col justify-between bg-white">
                 <div>
-                  <div className="h-32 bg-gradient-to-r from-amber-400 to-amber-600 flex items-center justify-center">
-                    <span className="text-4xl">👑</span>
+                  <div className="h-40 relative overflow-hidden flex items-center justify-center">
+                    <img 
+                      src={speakBg} 
+                      alt="Kepemimpinan" 
+                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 filter brightness-90"
+                      referrerPolicy="no-referrer"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/20"></div>
                   </div>
                   <div className="p-5 space-y-2">
                     <span className="text-[10px] bg-[#DCFCE7] text-brand-green px-2.5 py-0.5 rounded-full font-semibold">
