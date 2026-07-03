@@ -33,16 +33,16 @@ export function BlogView({ onNavigate }: BlogViewProps) {
     <div className="bg-[#FFF3E9]/30 min-h-screen font-sans">
       
       {/* HEADER BANNER with Aesthetic Books Background Image */}
-      <div className="relative py-16 px-4 overflow-hidden bg-slate-950 flex items-center min-h-[30vh]">
+      <div className="relative py-16 px-4 overflow-hidden bg-slate-900 flex items-center min-h-[30vh]">
         {/* Background Image with Gradient Overlay */}
         <div className="absolute inset-0 z-0">
           <img 
             src={blogBooksBg} 
             alt="Blog Background Books" 
-            className="w-full h-full object-cover object-center opacity-40 filter brightness-90"
+            className="w-full h-full object-cover object-center opacity-65 filter brightness-100"
             referrerPolicy="no-referrer"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/70 to-slate-950/85"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-slate-900/30 to-slate-900/55"></div>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4 relative z-10 w-full text-white">

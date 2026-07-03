@@ -201,16 +201,16 @@ export function SponsorshipView({
     <div className="bg-white min-h-screen font-sans">
       
       {/* HEADER BANNER with Handshake Background Image */}
-      <div className="relative py-24 px-4 overflow-hidden bg-slate-950 flex items-center min-h-[35vh]">
+      <div className="relative py-24 px-4 overflow-hidden bg-slate-900 flex items-center min-h-[35vh]">
         {/* Background Image with Gradient Overlay */}
         <div className="absolute inset-0 z-0">
           <img 
             src={sponsorshipHeroBg} 
             alt="Partnership Handshake Background" 
-            className="w-full h-full object-cover object-center opacity-35 filter brightness-90"
+            className="w-full h-full object-cover object-center opacity-60 filter brightness-100"
             referrerPolicy="no-referrer"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/70 to-slate-950/85"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-slate-900/30 to-slate-900/55"></div>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4 relative z-10 w-full text-white">
