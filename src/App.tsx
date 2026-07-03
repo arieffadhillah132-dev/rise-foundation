@@ -29,6 +29,7 @@ import { SearchPortalView } from './components/views/SearchPortalView';
 import { DashboardView } from './components/views/DashboardView';
 
 export default function App() {
+  const API_BASE = (import.meta.env.VITE_API_URL ?? '').replace(/\/$/, '');
   // 1. ROUTING STATE
   const [activeRoute, setActiveRoute] = useState<string>('/');
   // Storing form parameters
@@ -64,21 +65,21 @@ export default function App() {
       const headers = { 'Authorization': `Bearer ${token}` };
 
       // Fetch registrations
-      const regRes = await fetch('/api/auth/registrations', { headers });
+      const regRes = await fetch(`${API_BASE || ''}/api/auth/registrations`, { headers });
       if (regRes.ok) {
         const regs = await regRes.json();
         setRegistrations(regs);
       }
 
       // Fetch loans
-      const loanRes = await fetch('/api/library/loans', { headers });
+      const loanRes = await fetch(`${API_BASE || ''}/api/library/loans`, { headers });
       if (loanRes.ok) {
         const ln = await loanRes.json();
         setLoans(ln);
       }
 
       // Fetch membership status
-      const memRes = await fetch('/api/library/membership', { headers });
+      const memRes = await fetch(`${API_BASE || ''}/api/library/membership`, { headers });
       if (memRes.ok) {
         const data = await memRes.json();
         setIsLibraryMember(data.isMember);
@@ -86,7 +87,7 @@ export default function App() {
 
       // Fetch sponsor inquiries if admin
       if (userRole === 'admin') {
-        const inqRes = await fetch('/api/auth/inquiries', { headers });
+        const inqRes = await fetch(`${API_BASE || ''}/api/auth/inquiries`, { headers });
         if (inqRes.ok) {
           const inq = await inqRes.json();
           setSponsorInquiries(inq);
@@ -100,7 +101,7 @@ export default function App() {
   React.useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      fetch('/api/auth/me', {
+      fetch(`${API_BASE || ''}/api/auth/me`, {
         headers: { 'Authorization': `Bearer ${token}` }
       })
         .then(res => {
@@ -222,7 +223,7 @@ export default function App() {
     const password = 'password123';
     
     try {
-      const res = await fetch('/api/auth/login', {
+      const res = await fetch(`${API_BASE || ''}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
@@ -253,7 +254,7 @@ export default function App() {
     }
 
     try {
-      const res = await fetch(url, {
+      const res = await fetch(`${API_BASE || ''}${url}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -280,7 +281,7 @@ export default function App() {
     if (!token) return;
 
     try {
-      const res = await fetch('/api/library/loans', {
+      const res = await fetch(`${API_BASE || ''}/api/library/loans`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -307,7 +308,7 @@ export default function App() {
     if (!token || !currentUser) return;
 
     try {
-      const res = await fetch('/api/library/membership', {
+      const res = await fetch(`${API_BASE || ''}/api/library/membership`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -332,7 +333,7 @@ export default function App() {
 
   const handleAddInquiry = async (companyName: string, contactName: string, email: string, phone: string, notes: string) => {
     try {
-      const res = await fetch('/api/auth/inquiries', {
+      const res = await fetch(`${API_BASE || ''}/api/auth/inquiries`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ companyName, contactName, email, phone, notes })
@@ -355,7 +356,7 @@ export default function App() {
     if (!token) return;
 
     try {
-      const res = await fetch(`/api/auth/registrations/${regId}/status`, {
+      const res = await fetch(`${API_BASE || ''}/api/auth/registrations/${regId}/status`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -380,7 +381,7 @@ export default function App() {
     if (!token) return;
 
     try {
-      const res = await fetch(`/api/library/loans/${loanId}/status`, {
+      const res = await fetch(`${API_BASE || ''}/api/library/loans/${loanId}/status`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
