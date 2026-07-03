@@ -41,12 +41,12 @@ function parseDatabaseUrl(databaseUrl) {
   };
 }
 
-function createPoolConfig() {
+function getBaseConfig() {
   if (process.env.VERCEL && !process.env.DATABASE_URL && !process.env.DB_HOST) {
     throw new Error('Missing cloud database configuration. Set DATABASE_URL or DB_HOST/DB_USER/DB_PASSWORD/DB_NAME in Vercel Environment Variables.');
   }
 
-  const baseConfig = process.env.DATABASE_URL
+  return process.env.DATABASE_URL
     ? parseDatabaseUrl(process.env.DATABASE_URL)
     : {
         host: process.env.DB_HOST || 'localhost',
@@ -55,6 +55,10 @@ function createPoolConfig() {
         password: process.env.DB_PASSWORD || '',
         database: process.env.DB_NAME || 'rise_foundation',
       };
+}
+
+function createPoolConfig() {
+  const baseConfig = getBaseConfig();
 
   return {
     ...baseConfig,
@@ -72,6 +76,19 @@ export function getPool() {
   }
 
   return pool;
+}
+
+async function createDatabaseIfMissing() {
+  const baseConfig = getBaseConfig();
+  const { database, ...serverConfig } = baseConfig;
+  const connectConfig = {
+    ...serverConfig,
+    ssl: readSslConfig(),
+  };
+
+  const connection = await mysql.createConnection(connectConfig);
+  await connection.query(`CREATE DATABASE IF NOT EXISTS \\`${database}\\`;`);
+  await connection.end();
 }
 
 async function addColumnIfMissing(tableName, columnName, ddl) {
@@ -98,6 +115,7 @@ export async function ensureDatabase() {
 }
 
 async function initializeDatabase() {
+  await createDatabaseIfMissing();
   const db = getPool();
 
   await db.query(`
