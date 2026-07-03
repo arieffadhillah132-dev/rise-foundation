@@ -6,6 +6,14 @@
 import React from 'react';
 import { Globe, Lightbulb, Leaf, Rocket, Eye, Target, CheckCircle, GraduationCap, Compass, Users, ArrowRight, Tent, Laptop, Coins, Heart } from 'lucide-react';
 import { motion } from 'motion/react';
+import heroBg from '../../assets/images/educational_foundation_building_1783051516953.jpg';
+import cardReach from '../../assets/images/card_reach_1783069132948.jpg';
+import cardInspire from '../../assets/images/card_inspire_1783069155852.jpg';
+import cardSustain from '../../assets/images/card_sustain_1783069169650.jpg';
+import cardEmpower from '../../assets/images/card_empower_1783069183348.jpg';
+import bgVisi from '../../assets/images/bg_visi_vision_1783069996792.jpg';
+import bgMisi from '../../assets/images/bg_misi_mission_1783070009741.jpg';
+
 
 interface HomeViewProps {
   onNavigate: (route: string) => void;
@@ -38,8 +46,13 @@ export function HomeView({ onNavigate, currentUser }: HomeViewProps) {
       {/* 1. HERO SECTION */}
       <section className="relative overflow-hidden py-24 md:py-36 px-4 bg-slate-950 text-white flex items-center justify-center min-h-[80vh] md:min-h-[85vh]">
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900/90 to-slate-950 opacity-95"></div>
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.12),_transparent_25%)] opacity-20"></div>
+          <img 
+            src={heroBg} 
+            alt="RISE Foundation Building Background" 
+            className="w-full h-full object-cover object-center opacity-65 filter brightness-95 saturate-[0.9]" 
+            referrerPolicy="no-referrer"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-slate-950/80"></div>
         </div>
 
         <div className="max-w-6xl mx-auto text-center relative z-10">
@@ -118,56 +131,100 @@ export function HomeView({ onNavigate, currentUser }: HomeViewProps) {
             {/* Card 1: Reach */}
             <motion.div
               variants={itemVariants}
-              className="bg-white border-2 border-[#ffedd5] rounded-2xl p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-orange/5"
+              className="relative overflow-hidden group min-h-[250px] flex flex-col justify-end p-6 rounded-2xl border border-slate-800 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-orange-500/10"
             >
-              <div className="w-14 h-14 bg-brand-orange/10 rounded-xl flex items-center justify-center mx-auto mb-4 text-brand-orange">
-                <Globe className="w-7 h-7" />
+              <div className="absolute inset-0 z-0">
+                <img 
+                  src={cardReach} 
+                  alt="Reach Background" 
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/75 to-transparent"></div>
               </div>
-              <h3 className="font-bold text-lg text-gray-900 mb-2">Reach</h3>
-              <p className="text-gray-500 text-sm">Menjangkau seluruh lapisan masyarakat</p>
+              <div className="relative z-10">
+                <div className="w-12 h-12 bg-orange-500/20 backdrop-blur-xs border border-orange-500/35 rounded-xl flex items-center justify-center mb-4 text-orange-400 shadow-inner">
+                  <Globe className="w-6 h-6" />
+                </div>
+                <h3 className="font-bold text-xl text-white mb-2">Reach</h3>
+                <p className="text-gray-300 text-sm leading-relaxed">Menjangkau seluruh lapisan masyarakat</p>
+              </div>
             </motion.div>
 
             {/* Card 2: Inspire */}
             <motion.div
               variants={itemVariants}
-              className="bg-white border-2 border-[#ffedd5] rounded-2xl p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-orange/5"
+              className="relative overflow-hidden group min-h-[250px] flex flex-col justify-end p-6 rounded-2xl border border-slate-800 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-orange-500/10"
             >
-              <div className="w-14 h-14 bg-brand-orange/10 rounded-xl flex items-center justify-center mx-auto mb-4 text-brand-orange">
-                <Lightbulb className="w-7 h-7" />
+              <div className="absolute inset-0 z-0">
+                <img 
+                  src={cardInspire} 
+                  alt="Inspire Background" 
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/75 to-transparent"></div>
               </div>
-              <h3 className="font-bold text-lg text-gray-900 mb-2">Inspire</h3>
-              <p className="text-gray-500 text-sm">Menginspirasi perubahan dan inovasi</p>
+              <div className="relative z-10">
+                <div className="w-12 h-12 bg-orange-500/20 backdrop-blur-xs border border-orange-500/35 rounded-xl flex items-center justify-center mb-4 text-orange-400 shadow-inner">
+                  <Lightbulb className="w-6 h-6" />
+                </div>
+                <h3 className="font-bold text-xl text-white mb-2">Inspire</h3>
+                <p className="text-gray-300 text-sm leading-relaxed">Menginspirasi perubahan dan inovasi</p>
+              </div>
             </motion.div>
 
             {/* Card 3: Sustain */}
             <motion.div
               variants={itemVariants}
-              className="bg-white border-2 border-[#ffedd5] rounded-2xl p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-orange/5"
+              className="relative overflow-hidden group min-h-[250px] flex flex-col justify-end p-6 rounded-2xl border border-slate-800 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-emerald-500/10"
             >
-              <div className="w-14 h-14 bg-brand-green/10 rounded-xl flex items-center justify-center mx-auto mb-4 text-brand-green">
-                <Leaf className="w-7 h-7" />
+              <div className="absolute inset-0 z-0">
+                <img 
+                  src={cardSustain} 
+                  alt="Sustain Background" 
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/75 to-transparent"></div>
               </div>
-              <h3 className="font-bold text-lg text-gray-900 mb-2">Sustain</h3>
-              <p className="text-gray-500 text-sm">Memelihara keberlanjutan program</p>
+              <div className="relative z-10">
+                <div className="w-12 h-12 bg-emerald-500/20 backdrop-blur-xs border border-emerald-500/35 rounded-xl flex items-center justify-center mb-4 text-emerald-400 shadow-inner">
+                  <Leaf className="w-6 h-6" />
+                </div>
+                <h3 className="font-bold text-xl text-white mb-2">Sustain</h3>
+                <p className="text-gray-300 text-sm leading-relaxed">Memelihara keberlanjutan program</p>
+              </div>
             </motion.div>
 
             {/* Card 4: Empower */}
             <motion.div
               variants={itemVariants}
-              className="bg-white border-2 border-[#ffedd5] rounded-2xl p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-orange/5"
+              className="relative overflow-hidden group min-h-[250px] flex flex-col justify-end p-6 rounded-2xl border border-slate-800 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-emerald-500/10"
             >
-              <div className="w-14 h-14 bg-brand-green/10 rounded-xl flex items-center justify-center mx-auto mb-4 text-brand-green">
-                <Rocket className="w-7 h-7" />
+              <div className="absolute inset-0 z-0">
+                <img 
+                  src={cardEmpower} 
+                  alt="Empower Background" 
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/75 to-transparent"></div>
               </div>
-              <h3 className="font-bold text-lg text-gray-900 mb-2">Empower</h3>
-              <p className="text-gray-500 text-sm">Memberdayakan potensi setiap individu</p>
+              <div className="relative z-10">
+                <div className="w-12 h-12 bg-emerald-500/20 backdrop-blur-xs border border-emerald-500/35 rounded-xl flex items-center justify-center mb-4 text-emerald-400 shadow-inner">
+                  <Rocket className="w-6 h-6" />
+                </div>
+                <h3 className="font-bold text-xl text-white mb-2">Empower</h3>
+                <p className="text-gray-300 text-sm leading-relaxed">Memberdayakan potensi setiap individu</p>
+              </div>
             </motion.div>
           </motion.div>
         </div>
       </section>
 
       {/* 3. VISI & MISI */}
-      <section className="py-20 px-4 bg-gray-50">
+            <section className="py-20 px-4 bg-gray-50">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
           
           {/* Visi Card */}
@@ -176,15 +233,27 @@ export function HomeView({ onNavigate, currentUser }: HomeViewProps) {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="bg-white rounded-2xl p-8 shadow-sm border border-gray-150"
+            className="relative overflow-hidden group rounded-2xl p-8 md:p-10 shadow-xl border border-slate-800/20 bg-slate-950 text-white min-h-[350px] flex flex-col justify-between"
           >
-            <div className="w-12 h-12 bg-brand-orange rounded-xl flex items-center justify-center mb-4 text-white">
-              <Eye className="w-6 h-6" />
+            <div className="absolute inset-0 z-0">
+              <img 
+                src={bgVisi} 
+                alt="Visi Background" 
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-55"
+                referrerPolicy="no-referrer"
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-slate-950/90 via-slate-950/75 to-slate-900/80"></div>
             </div>
-            <h3 className="font-serif text-2xl font-bold mb-4 text-gray-900">Visi</h3>
-            <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
-              Menjadi yayasan pendidikan dan pemberdayaan terdepan yang menghasilkan generasi berkarakter, berdaya saing global, dan berdampak positif bagi Indonesia.
-            </p>
+            
+            <div className="relative z-10 space-y-4">
+              <div className="w-14 h-14 bg-brand-orange/20 border border-brand-orange/35 rounded-xl flex items-center justify-center mb-6 text-brand-orange shadow-inner">
+                <Eye className="w-7 h-7" />
+              </div>
+              <h3 className="font-serif text-3xl font-extrabold tracking-tight mb-2 text-white">Visi</h3>
+              <p className="text-gray-200 leading-relaxed text-base sm:text-lg">
+                Menjadi yayasan pendidikan dan pemberdayaan terdepan yang menghasilkan generasi berkarakter, berdaya saing global, dan berdampak positif bagi Indonesia.
+              </p>
+            </div>
           </motion.div>
 
           {/* Misi Card */}
@@ -193,30 +262,42 @@ export function HomeView({ onNavigate, currentUser }: HomeViewProps) {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="bg-white rounded-2xl p-8 shadow-sm border border-gray-150"
+            className="relative overflow-hidden group rounded-2xl p-8 md:p-10 shadow-xl border border-slate-800/20 bg-slate-950 text-white min-h-[350px] flex flex-col justify-between"
           >
-            <div className="w-12 h-12 bg-brand-green rounded-xl flex items-center justify-center mb-4 text-white">
-              <Target className="w-6 h-6" />
+            <div className="absolute inset-0 z-0">
+              <img 
+                src={bgMisi} 
+                alt="Misi Background" 
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-55"
+                referrerPolicy="no-referrer"
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-slate-950/90 via-slate-950/75 to-slate-900/80"></div>
             </div>
-            <h3 className="font-serif text-2xl font-bold mb-4 text-gray-900">Misi</h3>
-            <ul className="text-gray-600 space-y-3 text-sm sm:text-base">
-              <li className="flex items-start gap-2.5">
-                <CheckCircle className="w-5 h-5 text-brand-green mt-0.5 shrink-0" />
-                <span>Menyediakan akses pendidikan berkualitas untuk semua</span>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <CheckCircle className="w-5 h-5 text-brand-green mt-0.5 shrink-0" />
-                <span>Mengembangkan keterampilan melalui pelatihan terarah</span>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <CheckCircle className="w-5 h-5 text-brand-green mt-0.5 shrink-0" />
-                <span>Memberdayakan komunitas untuk mandiri dan berdaya</span>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <CheckCircle className="w-5 h-5 text-brand-green mt-0.5 shrink-0" />
-                <span>Membangun kolaborasi strategis dengan berbagai pihak</span>
-              </li>
-            </ul>
+
+            <div className="relative z-10 space-y-4">
+              <div className="w-14 h-14 bg-emerald-500/20 border border-emerald-500/35 rounded-xl flex items-center justify-center mb-6 text-emerald-400 shadow-inner">
+                <Target className="w-7 h-7" />
+              </div>
+              <h3 className="font-serif text-3xl font-extrabold tracking-tight mb-2 text-white">Misi</h3>
+              <ul className="text-gray-200 space-y-3.5 text-sm sm:text-base">
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-400 mt-1 shrink-0" />
+                  <span>Menyediakan akses pendidikan berkualitas untuk semua</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-400 mt-1 shrink-0" />
+                  <span>Mengembangkan keterampilan melalui pelatihan terarah</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-400 mt-1 shrink-0" />
+                  <span>Memberdayakan komunitas untuk mandiri dan berdaya</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-400 mt-1 shrink-0" />
+                  <span>Membangun kolaborasi strategis dengan berbagai pihak</span>
+                </li>
+              </ul>
+            </div>
           </motion.div>
 
         </div>

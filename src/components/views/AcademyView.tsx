@@ -6,6 +6,9 @@
 import React, { useState } from 'react';
 import { AcademyProgram } from '../../types';
 import { BookOpen, GraduationCap, Calendar, ArrowLeft, ArrowRight, Award, CheckCircle2 } from 'lucide-react';
+import sdRiseBg from '../../assets/images/sd_rise_playground_1783068365717.jpg';
+import smpRiseBg from '../../assets/images/smp_rise_building_1783070022818.jpg';
+import smaRiseBg from '../../assets/images/sma_rise_building_1783070036358.jpg';
 
 interface AcademyViewProps {
   onNavigate: (route: string) => void;
@@ -19,17 +22,27 @@ export function AcademyView({ onNavigate, onNavigateToForm }: AcademyViewProps) 
   if (selectedLevel === 'sd') {
     return (
       <div className="font-sans">
-        <section className="bg-gradient-to-br from-[#FFF7ED] via-[#FFEDD5] to-[#FED7AA] py-12 px-4 relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(#F97316_1px,transparent_1px)] [background-size:24px_24px] opacity-5"></div>
-          <div className="max-w-6xl mx-auto relative z-10">
+         <section className="relative py-20 px-4 overflow-hidden bg-slate-950 flex items-center min-h-[40vh]">
+          {/* Background Image of SD RISE Playground */}
+          <div className="absolute inset-0 z-0">
+            <img 
+              src={sdRiseBg} 
+              alt="SD RISE School Playground" 
+              className="w-full h-full object-cover object-center opacity-60 filter brightness-95" 
+              referrerPolicy="no-referrer"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/65 to-slate-950/80"></div>
+          </div>
+
+          <div className="max-w-6xl mx-auto relative z-10 w-full">
             <button 
               onClick={() => setSelectedLevel(null)} 
-              className="flex items-center gap-2 text-brand-orange mb-6 hover:underline font-medium text-sm cursor-pointer"
+              className="flex items-center gap-2 text-orange-300 hover:text-white mb-6 transition font-medium text-sm cursor-pointer bg-black/35 hover:bg-black/50 px-3.5 py-1.5 rounded-full border border-white/10 w-fit"
             >
               <ArrowLeft className="w-4 h-4" /> Kembali ke Academy
             </button>
-            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-gray-900 mb-2">SD RISE</h1>
-            <p className="text-gray-600 text-base sm:text-lg">Pendidikan dasar dengan pendekatan menyenangkan dan kurikulum merdeka</p>
+            <h1 className="font-serif text-4xl sm:text-5xl font-bold text-white mb-3 tracking-tight">SD RISE</h1>
+            <p className="text-gray-200 text-base sm:text-lg max-w-2xl">Pendidikan dasar dengan pendekatan menyenangkan dan kurikulum merdeka</p>
           </div>
         </section>
 
@@ -118,17 +131,27 @@ export function AcademyView({ onNavigate, onNavigateToForm }: AcademyViewProps) 
   if (selectedLevel === 'smp') {
     return (
       <div className="font-sans">
-        <section className="bg-gradient-to-br from-[#FFF7ED] via-[#FFEDD5] to-[#FED7AA] py-12 px-4 relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(#F97316_1px,transparent_1px)] [background-size:24px_24px] opacity-5"></div>
-          <div className="max-w-6xl mx-auto relative z-10">
+        <section className="relative py-20 px-4 overflow-hidden bg-slate-950 flex items-center min-h-[40vh]">
+          {/* Background Image of SMP RISE Campus */}
+          <div className="absolute inset-0 z-0">
+            <img 
+              src={smpRiseBg} 
+              alt="SMP RISE School Building" 
+              className="w-full h-full object-cover object-center opacity-60 filter brightness-95" 
+              referrerPolicy="no-referrer"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/65 to-slate-950/80"></div>
+          </div>
+
+          <div className="max-w-6xl mx-auto relative z-10 w-full">
             <button 
               onClick={() => setSelectedLevel(null)} 
-              className="flex items-center gap-2 text-brand-orange mb-6 hover:underline font-medium text-sm cursor-pointer"
+              className="flex items-center gap-2 text-orange-300 hover:text-white mb-6 transition font-medium text-sm cursor-pointer bg-black/35 hover:bg-black/50 px-3.5 py-1.5 rounded-full border border-white/10 w-fit"
             >
               <ArrowLeft className="w-4 h-4" /> Kembali ke Academy
             </button>
-            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-gray-900 mb-2">SMP RISE</h1>
-            <p className="text-gray-600 text-base sm:text-lg">Pendidikan menengah pertama yang membangun karakter dan kompetensi</p>
+            <h1 className="font-serif text-4xl sm:text-5xl font-bold text-white mb-3 tracking-tight">SMP RISE</h1>
+            <p className="text-gray-200 text-base sm:text-lg max-w-2xl">Pendidikan menengah pertama yang membangun karakter dan kompetensi</p>
           </div>
         </section>
 
@@ -206,19 +229,30 @@ export function AcademyView({ onNavigate, onNavigateToForm }: AcademyViewProps) 
   if (selectedLevel === 'sma') {
     return (
       <div className="font-sans">
-        <section className="bg-gradient-to-br from-[#FFF7ED] via-[#FFEDD5] to-[#FED7AA] py-12 px-4 relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(#F97316_1px,transparent_1px)] [background-size:24px_24px] opacity-5"></div>
-          <div className="max-w-6xl mx-auto relative z-10">
+             <section className="relative py-20 px-4 overflow-hidden bg-slate-950 flex items-center min-h-[40vh]">
+          {/* Background Image of SMA RISE Campus */}
+          <div className="absolute inset-0 z-0">
+            <img 
+              src={smaRiseBg} 
+              alt="SMA RISE School Building" 
+              className="w-full h-full object-cover object-center opacity-60 filter brightness-95" 
+              referrerPolicy="no-referrer"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/65 to-slate-950/80"></div>
+          </div>
+
+          <div className="max-w-6xl mx-auto relative z-10 w-full">
             <button 
               onClick={() => setSelectedLevel(null)} 
-              className="flex items-center gap-2 text-brand-orange mb-6 hover:underline font-medium text-sm cursor-pointer"
+              className="flex items-center gap-2 text-orange-300 hover:text-white mb-6 transition font-medium text-sm cursor-pointer bg-black/35 hover:bg-black/50 px-3.5 py-1.5 rounded-full border border-white/10 w-fit"
             >
               <ArrowLeft className="w-4 h-4" /> Kembali ke Academy
             </button>
-            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-gray-900 mb-2">SMA RISE</h1>
-            <p className="text-gray-600 text-base sm:text-lg">Pendidikan menengah atas yang mempersiapkan masa depan cemerlang</p>
+            <h1 className="font-serif text-4xl sm:text-5xl font-bold text-white mb-3 tracking-tight">SMA RISE</h1>
+            <p className="text-gray-200 text-base sm:text-lg max-w-2xl">Pendidikan menengah atas yang mempersiapkan masa depan cemerlang</p>
           </div>
         </section>
+
 
         <section className="py-12 px-4 bg-white">
           <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">

@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { Mail, Phone, MapPin, Globe, Award } from 'lucide-react';
+import { RiseLogo } from '../ui/RiseLogo';
 
 interface FooterProps {
   onNavigate: (route: string) => void;
@@ -16,11 +17,10 @@ export function Footer({ onNavigate }: FooterProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
         
         {/* Column 1: Brand & Vibe */}
+         {/* Column 1: Brand & Vibe */}
         <div className="space-y-4">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-brand-orange flex items-center justify-center font-bold text-base text-white">
-              R
-            </div>
+            <RiseLogo className="w-8 h-8" />
             <h2 className="font-serif font-bold text-lg tracking-wide">RISE Foundation</h2>
           </div>
           <p className="text-xs text-gray-400 leading-relaxed max-w-sm">

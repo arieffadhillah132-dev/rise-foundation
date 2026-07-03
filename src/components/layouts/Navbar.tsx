@@ -6,6 +6,7 @@
 import React, { useState } from 'react';
 import { Compass, GraduationCap, Users, BookOpen, Search, Menu, X, ArrowUpRight, LogIn, LogOut, ShieldAlert, ChevronDown, Award, Briefcase, Heart } from 'lucide-react';
 import { UserRole } from '../../types';
+import { RiseLogo } from '../ui/RiseLogo';
 
 interface NavbarProps {
   activeRoute: string;
@@ -17,6 +18,7 @@ interface NavbarProps {
 
 export function Navbar({ activeRoute, onNavigate, currentUser, onLogout, onNavigateSearch }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [programDropdownOpen, setProgramDropdownOpen] = useState(false);
 
   const navItems = [
     { label: 'Beranda', route: '/' },
@@ -39,14 +41,9 @@ export function Navbar({ activeRoute, onNavigate, currentUser, onLogout, onNavig
         {/* Brand Logo */}
         <div 
           onClick={() => onNavigate('/')} 
-          className="flex items-center gap-2 cursor-pointer select-none group"
+          className="cursor-pointer"
         >
-          <div className="w-10 h-10 rounded-lg bg-brand-orange flex items-center justify-center text-white font-sans font-extrabold text-lg transition-transform group-hover:scale-105">
-            R
-          </div>
-          <span className="font-sans font-extrabold text-xl tracking-tight text-gray-800">
-            RISE
-          </span>
+          <RiseLogo className="w-9 h-9" showText={true} textColorClass="text-gray-800" />
         </div>
 
         {/* Desktop Navigation Menu */}
@@ -57,8 +54,16 @@ export function Navbar({ activeRoute, onNavigate, currentUser, onLogout, onNavig
             
             if (hasChildren) {
               return (
-                <div key={item.label} className="relative group py-5">
+                <div 
+                  key={item.label} 
+                  className="relative group py-5"
+                  onMouseLeave={() => setProgramDropdownOpen(false)}
+                >
                   <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setProgramDropdownOpen(!programDropdownOpen);
+                    }}
                     className={`text-sm font-medium transition-colors duration-200 flex items-center gap-1 cursor-pointer ${
                       isActive
                         ? 'text-brand-orange font-semibold'
@@ -66,11 +71,15 @@ export function Navbar({ activeRoute, onNavigate, currentUser, onLogout, onNavig
                     }`}
                   >
                     <span>{item.label}</span>
-                    <ChevronDown className="w-4 h-4 opacity-70 group-hover:rotate-180 transition-transform duration-200" />
+                    <ChevronDown className={`w-4 h-4 opacity-70 transition-transform duration-200 ${programDropdownOpen ? 'rotate-180' : 'group-hover:rotate-180'}`} />
                   </button>
                   
                   {/* Dropdown Menu */}
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-56 rounded-xl bg-white border border-gray-100 shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible translate-y-2 group-hover:translate-y-0 transition-all duration-200 z-50 p-2">
+                  <div className={`absolute top-full left-1/2 -translate-x-1/2 mt-2 w-56 rounded-xl bg-white border border-gray-100 shadow-xl transition-all duration-200 z-50 p-2 ${
+                    programDropdownOpen 
+                      ? 'opacity-100 visible translate-y-0' 
+                      : 'opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0'
+                  }`}>
                     {item.children.map((subItem) => {
                       const isSubActive = activeRoute === subItem.route;
                       return (
@@ -79,6 +88,7 @@ export function Navbar({ activeRoute, onNavigate, currentUser, onLogout, onNavig
                           onClick={() => {
                             onNavigate(subItem.route);
                             setMobileMenuOpen(false);
+                            setProgramDropdownOpen(false);
                           }}
                           className={`w-full text-left px-4 py-3 rounded-lg hover:bg-brand-orange/10 cursor-pointer text-gray-700 hover:text-brand-orange transition flex items-center justify-between text-sm font-medium ${
                             isSubActive ? 'text-brand-orange bg-brand-orange/5 font-semibold' : ''
