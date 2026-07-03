@@ -205,24 +205,24 @@ export const BLOG_POSTS: BlogPost[] = [
     title: 'Pentingnya Integrasi Ekosistem Digital dalam Dunia Pendidikan Indonesia',
     slug: 'integrasi-ekosistem-digital-pendidikan',
     content: `
-# Pentingnya Integrasi Ekosistem Digital dalam Dunia Pendidikan Indonesia
+ Pentingnya Integrasi Ekosistem Digital dalam Dunia Pendidikan Indonesia
 
 Perkembangan teknologi internet di Indonesia mencatat pertumbuhan yang sangat pesat. Menurut survei terbaru APJII pada tahun 2024, jumlah pengguna internet di Indonesia mencapai 221,5 juta jiwa dengan tingkat penetrasi sebesar 79,5% dari total populasi nasional. Namun, peningkatan ini belum diimbangi secara maksimal oleh ketersediaan sistem informasi pendidikan yang terpadu.
 
-## Permasalahan yang Dihadapi Pengguna
+ Permasalahan yang Dihadapi Pengguna
 
 Saat ini, para siswa, mahasiswa, maupun guru seringkali harus menghadapi kenyataan pahit di mana data dan informasi pendidikan masih tersebar acak di berbagai portal yang terisolasi. Beberapa masalah klasik di antaranya:
 
-1. **Fragmentasi Informasi:** Informasi mengenai program sekolah formal, peluang beasiswa nasional, program pelatihan kerja sertifikasi, hingga lowongan magang tersebar di puluhan situs mandiri yang berbeda.
-2. **Efisiensi Akses Rendah:** Pengguna harus menghabiskan waktu luang berharga hanya untuk melompat dari satu portal ke portal lainnya demi membandingkan detail program.
-3. **Pendaftaran Berulang:** Setiap situs mandiri mewajibkan pengisian form data diri terpisah, menyebabkan pemborosan tenaga dan tidak adanya standardisasi satu pintu (Single Account System).
+1. Fragmentasi Informasi: Informasi mengenai program sekolah formal, peluang beasiswa nasional, program pelatihan kerja sertifikasi, hingga lowongan magang tersebar di puluhan situs mandiri yang berbeda.
+2. Efisiensi Akses Rendah: Pengguna harus menghabiskan waktu luang berharga hanya untuk melompat dari satu portal ke portal lainnya demi membandingkan detail program.
+3. Pendaftaran Berulang: Setiap situs mandiri mewajibkan pengisian form data diri terpisah, menyebabkan pemborosan tenaga dan tidak adanya standardisasi satu pintu (Single Account System).
 
-## Solusi RISE Foundation
+ Solusi RISE Foundation
 
-Melalui gagasan **Modular Product Architecture**, RISE Foundation hadir mengintegrasikan tiga pilar program utama:
-- **RISE Academy:** Melingkupi data sekolah formal berkualitas (SD, SMP, SMA), beasiswa unggulan, serta perpustakaan digital terintegrasi.
-- **RISE Camp:** Memberikan pelatihan keterampilan keras (hard skills) seperti web coding, keterampilan lembut (soft skills) seperti komunikasi kepemimpinan, serta persiapan sertifikasi bahasa internasional.
-- **RISE Community:** Mewadahi ruang ekspresi relawan sosial melalui gerakan *RISE Peduli* serta program *Brand Ambassador*.
+Melalui gagasan Modular Product Architecture, RISE Foundation hadir mengintegrasikan tiga pilar program utama:
+- RISE Academy: Melingkupi data sekolah formal berkualitas (SD, SMP, SMA), beasiswa unggulan, serta perpustakaan digital terintegrasi.
+- RISE Camp: Memberikan pelatihan keterampilan keras (hard skills) seperti web coding, keterampilan lembut (soft skills) seperti komunikasi kepemimpinan, serta persiapan sertifikasi bahasa internasional.
+- RISE Community: Mewadahi ruang ekspresi relawan sosial melalui gerakan RISE Peduli serta program Brand Ambassador.
 
 Dengan disatukannya layanan-layanan ini dalam satu akun tunggal terintegrasi, efisiensi pencarian informasi meningkat pesat, validitas kebenaran data terjamin resmi, serta memungkinkan rekomendasi personal yang disesuaikan langsung dengan minat unik profil pengguna masing-masing.
     `,
@@ -236,26 +236,26 @@ Dengan disatukannya layanan-layanan ini dalam satu akun tunggal terintegrasi, ef
     title: 'Bagaimana Memilih Beasiswa Pendidikan yang Sesuai dengan Kebutuhan Karir Masa Depan',
     slug: 'memilih-beasiswa-pendidikan-sesuai-karir',
     content: `
-# Memilih Beasiswa Pendidikan Sesuai Karir Anda
+ Memilih Beasiswa Pendidikan Sesuai Karir Anda
 
 Mendapatkan beasiswa sekolah atau kuliah adalah impian hampir setiap orang. Beasiswa bukan sekadar cara menghemat biaya pendidikan, melainkan merupakan jembatan emas menuju jaringan profesional yang sangat luas dan kredibel di tingkat global.
 
-## Langkah Cerdas Memilih Beasiswa
+ Langkah Cerdas Memilih Beasiswa
 
 Berikut adalah 4 panduan terstruktur sebelum Anda mengirimkan berkas pengajuan program beasiswa:
 
-### 1. Pahami Syarat Keahlian & Kriteria Penerimaan
+ 1. Pahami Syarat Keahlian & Kriteria Penerimaan
 Banyak pencari beasiswa gugur di tahap berkas karena tergesa-gesa tanpa memperhatikan persyaratan dasar. Selalu saring beasiswa sesuai jenjang IPK raport, sertifikat kepemimpinan, atau status kemandirian sosial Anda.
 
-### 2. Hubungkan Manfaat Pendidikan dengan Rencana Masa Depan
+ 2. Hubungkan Manfaat Pendidikan dengan Rencana Masa Depan
 Pilihlah beasiswa kemitraan korporat jika Anda menargetkan jalur karir cepat berkat dukungan internship terjamin, atau pilihlah beasiswa bakti sosial jika Anda berniat memfokuskan karir pada sektor kemanusiaan dan pengembangan daerah tertinggal.
 
-### 3. Persiapkan Dokumen Pendukung Terbaik
+ 3. Persiapkan Dokumen Pendukung Terbaik
 - Esai deskriptif yang orisinal dan humanis.
 - Surat rekomendasi akademis dari guru pembimbing kelas atau ketua organisasi.
 - Portofolio pencapaian digital yang tersusun secara profesional.
 
-RISE Foundation menyediakan menu **Scholarship Portal** terpadu lengkap dengan petunjuk pendaftaran yang siap membantu mempermudah langkah impian masa depan Anda!
+RISE Foundation menyediakan menu Scholarship Portal terpadu lengkap dengan petunjuk pendaftaran yang siap membantu mempermudah langkah impian masa depan Anda!
     `,
     author: 'Maharani Syifatania',
     date: '2026-06-20',

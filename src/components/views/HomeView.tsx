@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { Globe, Lightbulb, Leaf, Rocket, Eye, Target, CheckCircle, GraduationCap, Compass, Users, ArrowRight, Tent } from 'lucide-react';
+import { Globe, Lightbulb, Leaf, Rocket, Eye, Target, CheckCircle, GraduationCap, Compass, Users, ArrowRight, Tent, Laptop, Coins, Heart } from 'lucide-react';
 import { motion } from 'motion/react';
 
 interface HomeViewProps {
@@ -36,45 +36,40 @@ export function HomeView({ onNavigate, currentUser }: HomeViewProps) {
   return (
     <div className="font-sans">
       {/* 1. HERO SECTION */}
-      <section className="bg-gradient-to-br from-[#FFF7ED] via-[#FFEDD5] to-[#FED7AA] py-20 md:py-32 px-4 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(#F37021_1px,transparent_1px)] [background-size:24px_24px] opacity-5"></div>
+      <section className="relative overflow-hidden py-24 md:py-36 px-4 bg-slate-950 text-white flex items-center justify-center min-h-[80vh] md:min-h-[85vh]">
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900/90 to-slate-950 opacity-95"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.12),_transparent_25%)] opacity-20"></div>
+        </div>
+
         <div className="max-w-6xl mx-auto text-center relative z-10">
           <motion.p
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-brand-orange font-semibold mb-4 tracking-wide uppercase text-sm"
+            className="text-slate-200 font-semibold mb-4 tracking-[0.4em] uppercase text-sm"
           >
             Yayasan Pendidikan &amp; Pemberdayaan
           </motion.p>
-          
+
           <motion.h1
             id="heroTitle"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="font-serif text-3xl sm:text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight tracking-tight"
+            className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight tracking-tight max-w-5xl mx-auto"
           >
-            Membangun generasi unggul melalui pendidikan berkualitas, pelatihan keterampilan, dan pemberdayaan komunitas untuk masa depan Indonesia yang lebih cerah
+            RISE Foundation
           </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="text-brand-green font-semibold text-lg mb-6"
-          >
-            Reach · Inspire · Sustain · Empower
-          </motion.p>
 
           <motion.p
             id="heroSubtitle"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="text-gray-600 text-base sm:text-lg md:text-xl max-w-3xl mx-auto mb-10 leading-relaxed"
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="text-slate-300 text-base sm:text-lg md:text-xl max-w-3xl mx-auto mb-10 leading-relaxed font-normal"
           >
-            Membangun generasi unggul melalui pendidikan berkualitas, pelatihan keterampilan, dan pemberdayaan komunitas untuk masa depan Indonesia yang lebih cerah
+            Kami berkomitmen untuk mendampingi talenta muda Indonesia agar tumbuh mandiri, adaptif, dan berdaya saing tinggi demi masa depan bangsa yang lebih cerah.
           </motion.p>
 
           <motion.div
@@ -93,7 +88,7 @@ export function HomeView({ onNavigate, currentUser }: HomeViewProps) {
               onClick={() => {
                 document.getElementById('about-section')?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="w-full sm:w-auto px-8 py-4 border-2 border-brand-orange text-brand-orange rounded-xl font-semibold text-lg hover:bg-brand-orange hover:text-white transition duration-200 cursor-pointer"
+              className="w-full sm:w-auto px-8 py-4 border-2 border-white/80 text-white rounded-xl font-semibold text-lg hover:bg-white hover:text-slate-950 transition duration-200 cursor-pointer"
             >
               Pelajari Lebih Lanjut
             </button>
@@ -347,21 +342,41 @@ export function HomeView({ onNavigate, currentUser }: HomeViewProps) {
           <h2 className="font-serif text-3xl font-bold text-gray-900 mb-4">Mitra Kami</h2>
           <p className="text-gray-600 mb-12">Bekerja sama dengan berbagai organisasi untuk dampak yang lebih besar</p>
           
-          <div className="flex flex-wrap justify-center gap-8 items-center opacity-70">
-            <div className="w-32 h-16 bg-gray-100 rounded-lg flex items-center justify-center font-bold text-gray-400 text-sm">
-              Partner 1
+          <div className="flex flex-wrap justify-center gap-6 sm:gap-8 items-center">
+            <div className="flex items-center gap-4 px-6 py-4 bg-amber-50/60 rounded-2xl border border-amber-100 shadow-xs hover:shadow-md hover:bg-amber-50/90 transition duration-300 w-56 text-left">
+              <div className="p-3 bg-amber-500 rounded-xl text-white shadow-sm">
+                <GraduationCap className="h-6 w-6" />
+              </div>
+              <div>
+                <p className="text-base font-extrabold text-slate-800">EduTech Hub</p>
+              </div>
             </div>
-            <div className="w-32 h-16 bg-gray-100 rounded-lg flex items-center justify-center font-bold text-gray-400 text-sm">
-              Partner 2
+
+            <div className="flex items-center gap-4 px-6 py-4 bg-blue-50/60 rounded-2xl border border-blue-100 shadow-xs hover:shadow-md hover:bg-blue-50/90 transition duration-300 w-56 text-left">
+              <div className="p-3 bg-blue-500 rounded-xl text-white shadow-sm">
+                <Laptop className="h-6 w-6" />
+              </div>
+              <div>
+                <p className="text-base font-extrabold text-slate-800">InnoTech Lab</p>
+              </div>
             </div>
-            <div className="w-32 h-16 bg-gray-100 rounded-lg flex items-center justify-center font-bold text-gray-400 text-sm">
-              Partner 3
+
+            <div className="flex items-center gap-4 px-6 py-4 bg-emerald-50/60 rounded-2xl border border-emerald-100 shadow-xs hover:shadow-md hover:bg-emerald-50/90 transition duration-300 w-56 text-left">
+              <div className="p-3 bg-emerald-500 rounded-xl text-white shadow-sm">
+                <Coins className="h-6 w-6" />
+              </div>
+              <div>
+                <p className="text-base font-extrabold text-slate-800">FinCorp Group</p>
+              </div>
             </div>
-            <div className="w-32 h-16 bg-gray-100 rounded-lg flex items-center justify-center font-bold text-gray-400 text-sm">
-              Partner 4
-            </div>
-            <div className="w-32 h-16 bg-gray-100 rounded-lg flex items-center justify-center font-bold text-gray-400 text-sm">
-              Partner 5
+
+            <div className="flex items-center gap-4 px-6 py-4 bg-rose-50/60 rounded-2xl border border-rose-100 shadow-xs hover:shadow-md hover:bg-rose-50/90 transition duration-300 w-56 text-left">
+              <div className="p-3 bg-rose-500 rounded-xl text-white shadow-sm">
+                <Heart className="h-6 w-6" />
+              </div>
+              <div>
+                <p className="text-base font-extrabold text-slate-800">Care Initiative</p>
+              </div>
             </div>
           </div>
         </div>
