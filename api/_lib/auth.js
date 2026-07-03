@@ -1,4 +1,7 @@
+import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
+
+dotenv.config();
 
 export const JWT_SECRET = process.env.JWT_SECRET || 'rise_foundation_super_secret_jwt_key_2026';
 

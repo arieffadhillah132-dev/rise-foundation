@@ -1,5 +1,8 @@
+import dotenv from 'dotenv';
 import mysql from 'mysql2/promise';
 import bcrypt from 'bcryptjs';
+
+dotenv.config();
 
 let pool;
 let initPromise;
@@ -32,12 +35,22 @@ function parseDatabaseUrl(databaseUrl) {
     throw new Error('DATABASE_URL must include a database name.');
   }
 
+  const params = url.searchParams;
+  const sslParam = params.get('ssl');
+  const sslMode = params.get('sslmode');
+  let ssl;
+
+  if (sslParam === 'true' || sslParam === '1' || sslMode === 'require' || sslMode === 'verify_ca' || sslMode === 'verify_identity') {
+    ssl = {};
+  }
+
   return {
     host: url.hostname,
     port: url.port ? Number(url.port) : 3306,
     user: decodeURIComponent(url.username),
     password: decodeURIComponent(url.password),
     database: decodeURIComponent(database),
+    ...(ssl ? { ssl } : {}),
   };
 }
 
@@ -59,6 +72,7 @@ function getBaseConfig() {
 
 function createPoolConfig() {
   const baseConfig = getBaseConfig();
+  const sslConfig = baseConfig.ssl ?? readSslConfig();
 
   return {
     ...baseConfig,
@@ -66,7 +80,7 @@ function createPoolConfig() {
     connectionLimit: Number(process.env.DB_CONNECTION_LIMIT || 2),
     queueLimit: 0,
     enableKeepAlive: true,
-    ssl: readSslConfig(),
+    ...(sslConfig !== undefined ? { ssl: sslConfig } : {}),
   };
 }
 
@@ -87,8 +101,18 @@ async function createDatabaseIfMissing() {
   };
 
   const connection = await mysql.createConnection(connectConfig);
-  await connection.query(`CREATE DATABASE IF NOT EXISTS \\`${database}\\`;`);
-  await connection.end();
+  try {
+    await connection.query(`CREATE DATABASE IF NOT EXISTS \`${database}\`;`);
+  } catch (error) {
+    if (error && ['ER_DB_CREATE_EXISTS', 'ER_DBACCESS_DENIED_ERROR', 'ER_DB_DROP_DENIED_ERROR', 'ER_DB_CREATE_EXISTS'].includes(error.code)) {
+      console.warn('Skipping database creation because the target database already exists or creation is not permitted.');
+    } else {
+      await connection.end();
+      throw error;
+    }
+  } finally {
+    await connection.end();
+  }
 }
 
 async function addColumnIfMissing(tableName, columnName, ddl) {
