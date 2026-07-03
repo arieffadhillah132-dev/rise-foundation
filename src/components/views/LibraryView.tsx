@@ -5,6 +5,7 @@
 
 import React, { useState } from 'react';
 import { Book, BookOpen, CheckCircle2, ChevronDown, Download, Info, X } from 'lucide-react';
+import libraryBg from '../../assets/images/library_bg_image_1783072436303.jpg';
 
 interface BookItem {
   id: string;
@@ -142,25 +143,36 @@ Selamat membaca bersama RISE Nusantara!
   return (
     <div className="bg-white min-h-screen font-sans">
       
-      {/* HEADER BANNER (Soft Warm Tint background) */}
-      <div className="bg-[#FFF8F3] py-16 border-b border-orange-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
+      {/* HEADER BANNER with Library Background Image (Matches SD/SMP/SMA Detail Theme) */}
+      <div className="relative py-20 px-4 overflow-hidden bg-slate-950 flex items-center min-h-[35vh]">
+        {/* Background Image with Gradient Overlay */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src={libraryBg} 
+            alt="Library Background Bookshelves" 
+            className="w-full h-full object-cover object-center opacity-60 filter brightness-95"
+            referrerPolicy="no-referrer"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/65 to-slate-950/80"></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4 relative z-10 w-full">
           
           {/* Back Navigation */}
           <div>
             <button
               onClick={() => onNavigate('/program/academy')}
-              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-brand-orange hover:text-brand-orange/80 transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-orange-300 hover:text-white transition-colors bg-black/35 hover:bg-black/50 px-3.5 py-1.5 rounded-full border border-white/10 cursor-pointer animate-fade-in"
             >
-              <span className="text-base">←</span> Kembali ke Academy
+              <span>←</span> Kembali ke Academy
             </button>
           </div>
 
           <div className="space-y-2">
-            <h1 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-[#1E293B] tracking-tight">
+            <h1 className="font-serif font-bold text-4xl sm:text-5xl text-white tracking-tight">
               RISE Library
             </h1>
-            <p className="text-xs sm:text-sm text-gray-500 font-sans max-w-xl">
+            <p className="text-sm sm:text-base text-gray-200 font-sans max-w-xl font-medium">
               Perpustakaan fisik & digital untuk mendukung literasi
             </p>
           </div>

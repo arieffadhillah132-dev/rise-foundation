@@ -57,7 +57,7 @@ export function FormView({ programType, programId, onNavigate, currentUser, onAd
   const [studentName, setStudentName] = useState(currentUser?.fullName || '');
   const [address, setAddress] = useState('');
   const [registeredClass, setRegisteredClass] = useState(isSD ? 'Kelas 1' : isSMP ? 'Kelas 7' : 'Kelas 10');
-  const [wave, setWave] = useState(isSMA ? 'Gelombang 1 - 1 November - 31 Desember 2024' : 'Gelombang 1 - 1 Januari - 28 Februari 2025');
+  const [wave, setWave] = useState(isSMA ? 'Gelombang 1 - 1 November - 31 Desember 2024' : 'Gelombang 1 - 1 Januari - 28 Februari 2027');
 
   // Camp-specific form state (matches Screenshot 1 prototype exactly!)
   const [campFullName, setCampFullName] = useState(currentUser?.fullName || '');
@@ -99,7 +99,7 @@ export function FormView({ programType, programId, onNavigate, currentUser, onAd
     }
     if (programType === 'academy') {
       setRegisteredClass(isSD ? 'Kelas 1' : isSMP ? 'Kelas 7' : 'Kelas 10');
-      setWave(isSMA ? 'Gelombang 1 - 1 November - 31 Desember 2024' : 'Gelombang 1 - 1 Januari - 28 Februari 2025');
+      setWave(isSMA ? 'Gelombang 1 - 1 November - 31 Desember 2024' : 'Gelombang 1 - 1 Januari - 28 Februari 2027');
     }
   }, [programId, currentUser, programType, isSD, isSMP, isSMA]);
 
@@ -323,21 +323,21 @@ export function FormView({ programType, programId, onNavigate, currentUser, onAd
                     >
                       {isSD && (
                         <>
-                          <option value="Gelombang 1 - 1 Januari - 28 Februari 2025">Gelombang 1 - 1 Januari - 28 Februari 2025</option>
-                          <option value="Gelombang 2 - 1 Maret - 30 April 2025">Gelombang 2 - 1 Maret - 30 April 2025</option>
-                          <option value="Gelombang 3 - 1 Mei - 30 Juni 2025">Gelombang 3 - 1 Mei - 30 Juni 2025</option>
+                          <option value="Gelombang 1 - 1 Januari - 28 Februari 2027">Gelombang 1 - 1 Januari - 28 Februari 2027</option>
+                          <option value="Gelombang 2 - 1 Maret - 30 April 2027">Gelombang 2 - 1 Maret - 30 April 2027</option>
+                          <option value="Gelombang 3 - 1 Mei - 30 Juni 2027">Gelombang 3 - 1 Mei - 30 Juni 2027</option>
                         </>
                       )}
                       {isSMP && (
                         <>
-                          <option value="Gelombang 1 - 1 Januari - 28 Februari 2025">Gelombang 1 - 1 Januari - 28 Februari 2025</option>
-                          <option value="Gelombang 2 - 1 Maret - 30 April 2025">Gelombang 2 - 1 Maret - 30 April 2025</option>
+                          <option value="Gelombang 1 - 1 Januari - 28 Februari 2027">Gelombang 1 - 1 Januari - 28 Februari 2027</option>
+                          <option value="Gelombang 2 - 1 Maret - 30 April 2027">Gelombang 2 - 1 Maret - 30 April 2027</option>
                         </>
                       )}
                       {isSMA && (
                         <>
                           <option value="Gelombang 1 - 1 November - 31 Desember 2024">Gelombang 1 - 1 November - 31 Desember 2024</option>
-                          <option value="Gelombang 2 - 1 Januari - 28 Februari 2025">Gelombang 2 - 1 Januari - 28 Februari 2025</option>
+                          <option value="Gelombang 2 - 1 Januari - 28 Februari 2027">Gelombang 2 - 1 Januari - 28 Februari 2027</option>
                         </>
                       )}
                     </select>

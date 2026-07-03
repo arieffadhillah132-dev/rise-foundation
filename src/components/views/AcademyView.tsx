@@ -11,7 +11,7 @@ import smpRiseBg from '../../assets/images/smp_rise_building_1783070022818.jpg';
 import smaRiseBg from '../../assets/images/sma_rise_building_1783070036358.jpg';
 import scholarshipBg from '../../assets/images/scholarship_bg_image_1783072414296.jpg';
 import libraryBg from '../../assets/images/library_bg_image_1783072436303.jpg';
-import academyHeroBg from '../../assets/images/educational_foundation_building_1783051516953.jpg';
+import academyHeroBg from '../../assets/images/academy_modern_hero_1783076485969.jpg';
 
 interface AcademyViewProps {
   onNavigate: (route: string) => void;
@@ -167,14 +167,14 @@ export function AcademyView({ onNavigate, onNavigateToForm }: AcademyViewProps) 
                   <Calendar className="w-6 h-6 text-brand-orange shrink-0" />
                   <div>
                     <p className="font-semibold text-gray-900 text-sm">Gelombang 1</p>
-                    <p className="text-xs text-gray-500">1 Januari - 28 Februari 2025</p>
+                    <p className="text-xs text-gray-500">1 Januari - 28 Februari 2027</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4 p-4 bg-orange-50 rounded-xl border border-orange-100/60">
                   <Calendar className="w-6 h-6 text-brand-orange shrink-0" />
                   <div>
                     <p className="font-semibold text-gray-900 text-sm">Gelombang 2</p>
-                    <p className="text-xs text-gray-500">1 Maret - 30 April 2025</p>
+                    <p className="text-xs text-gray-500">1 Maret - 30 April 2027</p>
                   </div>
                 </div>
               </div>
@@ -272,7 +272,7 @@ export function AcademyView({ onNavigate, onNavigateToForm }: AcademyViewProps) 
                   <Calendar className="w-6 h-6 text-brand-orange shrink-0" />
                   <div>
                     <p className="font-semibold text-gray-900 text-sm">Gelombang 2</p>
-                    <p className="text-xs text-gray-500">1 Januari - 28 Februari 2025</p>
+                    <p className="text-xs text-gray-500">1 Januari - 28 Februari 2027</p>
                   </div>
                 </div>
               </div>

@@ -828,7 +828,7 @@ export function CampView({
                 <span className="text-2xl">🎨</span>
                 <div>
                   <h4 className="font-semibold text-gray-900 text-sm">UI/UX Design</h4>
-                  <p className="text-xs text-gray-500">Mulai Maret 2025</p>
+                  <p className="text-xs text-gray-500">Mulai Maret 2027</p>
                 </div>
               </div>
 
@@ -837,7 +837,7 @@ export function CampView({
                 <span className="text-2xl">📊</span>
                 <div>
                   <h4 className="font-semibold text-gray-900 text-sm">Data Analytics</h4>
-                  <p className="text-xs text-gray-500">Mulai April 2025</p>
+                  <p className="text-xs text-gray-500">Mulai April 2027</p>
                 </div>
               </div>
 
