@@ -19,6 +19,31 @@ interface NavbarProps {
 export function Navbar({ activeRoute, onNavigate, currentUser, onLogout, onNavigateSearch }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [programDropdownOpen, setProgramDropdownOpen] = useState(false);
+  const dropdownTimeoutRef = React.useRef<any>(null);
+
+  React.useEffect(() => {
+    return () => {
+      if (dropdownTimeoutRef.current) {
+        clearTimeout(dropdownTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  const openDropdown = () => {
+    if (dropdownTimeoutRef.current) {
+      clearTimeout(dropdownTimeoutRef.current);
+    }
+    setProgramDropdownOpen(true);
+  };
+
+  const closeDropdownWithDelay = () => {
+    if (dropdownTimeoutRef.current) {
+      clearTimeout(dropdownTimeoutRef.current);
+    }
+    dropdownTimeoutRef.current = setTimeout(() => {
+      setProgramDropdownOpen(false);
+    }, 450); // 450ms delay to prevent accidental disappearance
+  };
 
   const navItems = [
     { label: 'Beranda', route: '/' },
