@@ -166,7 +166,7 @@ export function Navbar({ activeRoute, onNavigate, currentUser, onLogout, onNavig
 
           {currentUser ? (
             <div className="flex items-center gap-3">
-              <button
+                <button
                 onClick={() => onNavigate('/dashboard')}
                 className={`px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider border transition-all cursor-pointer ${
                   activeRoute === '/dashboard'
@@ -174,7 +174,7 @@ export function Navbar({ activeRoute, onNavigate, currentUser, onLogout, onNavig
                     : 'bg-white text-slate-800 border-gray-200 hover:border-brand-orange hover:text-brand-orange'
                 }`}
               >
-                Dashboard ({currentUser.fullName.split(' ')[0]})
+                Dashboard ({currentUser?.fullName?.split?.(' ')[0] ?? 'User'})
               </button>
               <button
                 onClick={onLogout}

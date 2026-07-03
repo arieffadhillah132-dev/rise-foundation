@@ -361,7 +361,7 @@ export function CampView({
                 </div>
                 <div>
                   <p className="text-xs text-gray-400 uppercase font-bold tracking-wider mb-1 font-mono">MENTOR</p>
-                  <p className="font-semibold text-gray-900 text-sm truncate" title={mentor}>{mentor.split(' ')[0]} {mentor.split(' ')[1] || ''}</p>
+                  <p className="font-semibold text-gray-900 text-sm truncate" title={mentor}>{(mentor || '').split(' ')[0]} {(mentor || '').split(' ')[1] || ''}</p>
                 </div>
                 <div>
                   <p className="text-xs text-gray-400 uppercase font-bold tracking-wider mb-1 font-mono">SERTIFIKAT</p>

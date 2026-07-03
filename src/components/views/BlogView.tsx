@@ -145,7 +145,7 @@ export function BlogView({ onNavigate }: BlogViewProps) {
                     </div>
 
                     <div className="pt-6 border-t border-gray-50 mt-6 flex justify-between items-center">
-                      <span className="text-[10px] text-gray-400 font-mono">Oleh: {post.author.split(' ')[0]}</span>
+                      <span className="text-[10px] text-gray-400 font-mono">Oleh: {(post.author ?? '').split(' ')[0]}</span>
                       <button
                         onClick={() => setSelectedPostId(post.id)}
                         className="text-xs font-semibold text-brand-orange flex items-center gap-1 group-hover:gap-2 transition-all"
@@ -190,7 +190,7 @@ export function BlogView({ onNavigate }: BlogViewProps) {
                 </p>
                 <div className="whitespace-pre-line text-xs sm:text-sm pt-4 space-y-3 font-sans">
                   {/* Since react-markdown requires installation, we can render the formatted text cleanly using raw strings with semantic linebreaks */}
-                  {activePost.content.split('\n\n').map((paragraph, index) => {
+                  {(activePost?.content ?? '').split('\n\n').map((paragraph, index) => {
                     if (paragraph.startsWith('## ')) {
                       return <h2 key={index} className="font-serif font-bold text-lg text-brand-navy pt-4 border-b border-gray-100 pb-1">{paragraph.replace('## ', '')}</h2>;
                     }

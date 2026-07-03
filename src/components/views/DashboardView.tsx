@@ -165,7 +165,7 @@ export function DashboardView({
                                   <p><strong>Siswa:</strong> {reg.details.studentName}</p>
                                   <p><strong>Orang Tua:</strong> {reg.details.parentName}</p>
                                   <p><strong>Alamat:</strong> {reg.details.address}</p>
-                                  <p><strong>Kelas:</strong> {reg.details.registeredClass} • <strong>{reg.details.wave?.split(' - ')[0]}</strong></p>
+                                  <p><strong>Kelas:</strong> {reg.details.registeredClass} • <strong>{(reg.details?.wave ?? '').split(' - ')[0] || ''}</strong></p>
                                 </div>
                               )}
                             </div>
@@ -361,7 +361,7 @@ export function DashboardView({
                   <div className="pt-4 border-t border-white/10 flex justify-between items-end text-[10px] font-sans text-gray-300">
                     <div>
                       <p className="text-[8px] text-gray-500 uppercase tracking-widest">Nomor Anggota</p>
-                      <p className="font-bold tracking-widest text-white">RISE-MEMBER-{currentUser?.id.split('-')[1]?.toUpperCase() || 'A78B'}</p>
+                      <p className="font-bold tracking-widest text-white">RISE-MEMBER-{((currentUser?.id ?? '').split('-')[1] ?? 'A78B').toUpperCase()}</p>
                     </div>
                     <div>
                       <p className="text-[8px] text-gray-500 uppercase tracking-widest">Dibuat Sejak</p>
