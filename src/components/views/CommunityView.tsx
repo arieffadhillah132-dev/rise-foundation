@@ -6,6 +6,9 @@
 import React, { useState } from 'react';
 import { Award, Users, MessagesSquare, Calendar, CheckCircle2, User, Send, ArrowRight, MessageCircle } from 'lucide-react';
 import communityHeroBg from '../../assets/images/community_hero_bg_1783074438056.jpg';
+import communityMengajar from '../../assets/images/community_mengajar.jpg';
+import communityBencana from '../../assets/images/community_bencana.jpg';
+import communitySampah from '../../assets/images/community_sampah.jpg';
 
 interface ThreadPost {
   author: string;
@@ -254,18 +257,27 @@ export function CommunityView({ onNavigate, onNavigateToForm, currentUser }: Com
           <h3 className="font-serif font-bold text-xl text-[#1E293B]">Ilustrasi Program</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
-              { title: "Mengajar di Panti Asuhan", desc: "3 lokasi - 100 anak terlayani", icon: "🏫", color: "bg-blue-50 text-blue-600 border-blue-100" },
-              { title: "Peduli Bencana", desc: "Bantuan ke wilayah terdampak", icon: "🤝", color: "bg-red-50 text-red-600 border-red-100" },
-              { title: "Revitalisasi Sampah", desc: "10 sekolah - 2000 siswa teredukasi", icon: "♻️", color: "bg-emerald-50 text-emerald-600 border-emerald-100" },
-              { title: "Tanam Pohon", desc: "500 pohon ditanam di 2 kota", icon: "🌱", color: "bg-green-50 text-green-600 border-green-100" },
+              { title: "Mengajar di Panti Asuhan", desc: "3 lokasi - 100 anak terlayani", image: communityMengajar },
+              { title: "Peduli Bencana", desc: "Bantuan ke wilayah terdampak", image: communityBencana },
+              { title: "Revitalisasi Sampah", desc: "10 sekolah - 2000 siswa teredukasi", image: communitySampah },
+              { title: "Tanam Pohon", desc: "500 pohon ditanam di 2 kota", image: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=600" },
             ].map((item, idx) => (
-              <div key={idx} className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex items-start gap-4 hover:border-brand-orange/30 transition-all">
-                <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 text-xl ${item.color.split(' ')[0]}`}>
-                  {item.icon}
+              <div key={idx} className="relative rounded-2xl overflow-hidden h-44 flex flex-col justify-end p-5 shadow-sm group hover:shadow-md transition-all duration-300 border border-gray-150/30 cursor-pointer">
+                {/* Background Image with Gradient Overlay */}
+                <div className="absolute inset-0 z-0">
+                  <img 
+                    src={item.image} 
+                    alt={item.title} 
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/50 to-slate-950/20"></div>
                 </div>
-                <div className="space-y-0.5">
-                  <h4 className="font-bold text-xs text-[#1E293B] leading-tight font-sans">{item.title}</h4>
-                  <p className="text-[10px] text-gray-400 font-medium font-sans">{item.desc}</p>
+
+                {/* Content */}
+                <div className="relative z-10 space-y-1.5 text-left">
+                  <h4 className="font-serif font-bold text-sm text-white leading-snug tracking-tight">{item.title}</h4>
+                  <p className="text-[10px] text-gray-200 font-medium font-sans">{item.desc}</p>
                 </div>
               </div>
             ))}

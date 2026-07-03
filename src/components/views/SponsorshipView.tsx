@@ -249,60 +249,62 @@ export function SponsorshipView({
             Benefit Menjadi Sponsor
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            
-            {/* Benefit Card 1 */}
-            <div className="bg-gray-50/50 p-6 rounded-2xl border border-gray-100/80 space-y-2">
-              <div className="flex items-center gap-2.5">
-                <Megaphone className="w-4 h-4 text-brand-orange" />
-                <h3 className="font-bold text-sm sm:text-base text-[#1E293B]">
-                  Brand Exposure
-                </h3>
-              </div>
-              <p className="text-xs text-gray-500 leading-relaxed pl-6">
-                Logo di semua materi, website, dan event RISE
-              </p>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {[
+              { 
+                title: "Brand Exposure", 
+                desc: "Logo di semua materi, website, dan event RISE untuk eksposur maksimal.", 
+                image: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&q=80&w=600",
+                icon: <Megaphone className="w-4 h-4 text-orange-400" />
+              },
+              { 
+                title: "CSR Impact", 
+                desc: "Laporan dampak sosial yang komprehensif untuk kebutuhan CSR perusahaan.", 
+                image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=600",
+                icon: <Heart className="w-4 h-4 text-orange-400" />
+              },
+              { 
+                title: "Talent Pipeline", 
+                desc: "Akses eksklusif ke talenta muda berprestasi dan terlatih dari program RISE.", 
+                image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=600",
+                icon: <Users className="w-4 h-4 text-orange-400" />
+              },
+              { 
+                title: "Co-branding Event", 
+                desc: "Kolaborasi menyelenggarakan event bersama untuk interaksi positif.", 
+                image: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&q=80&w=600",
+                icon: <Sparkles className="w-4 h-4 text-orange-400" />
+              },
+            ].map((benefit, idx) => (
+              <div 
+                key={idx} 
+                className="relative rounded-2xl overflow-hidden h-48 flex flex-col justify-end p-6 shadow-sm group hover:shadow-md transition-all duration-300 border border-gray-150/30 cursor-pointer"
+              >
+                {/* Background Image with Gradient Overlay */}
+                <div className="absolute inset-0 z-0">
+                  <img 
+                    src={benefit.image} 
+                    alt={benefit.title} 
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/65 to-slate-950/30"></div>
+                </div>
 
-            {/* Benefit Card 2 */}
-            <div className="bg-gray-50/50 p-6 rounded-2xl border border-gray-100/80 space-y-2">
-              <div className="flex items-center gap-2.5">
-                <Heart className="w-4 h-4 text-brand-orange" />
-                <h3 className="font-bold text-sm sm:text-base text-[#1E293B]">
-                  CSR Impact
-                </h3>
+                {/* Content */}
+                <div className="relative z-10 space-y-2 text-left">
+                  <div className="flex items-center gap-2">
+                    {benefit.icon}
+                    <h3 className="font-serif font-bold text-base sm:text-lg text-white leading-snug tracking-tight">
+                      {benefit.title}
+                    </h3>
+                  </div>
+                  <p className="text-xs text-gray-200 font-sans leading-relaxed">
+                    {benefit.desc}
+                  </p>
+                </div>
               </div>
-              <p className="text-xs text-gray-500 leading-relaxed pl-6">
-                Laporan dampak sosial untuk kebutuhan CSR perusahaan
-              </p>
-            </div>
-
-            {/* Benefit Card 3 */}
-            <div className="bg-gray-50/50 p-6 rounded-2xl border border-gray-100/80 space-y-2">
-              <div className="flex items-center gap-2.5">
-                <Users className="w-4 h-4 text-brand-orange" />
-                <h3 className="font-bold text-sm sm:text-base text-[#1E293B]">
-                  Talent Pipeline
-                </h3>
-              </div>
-              <p className="text-xs text-gray-500 leading-relaxed pl-6">
-                Akses ke talenta muda terlatih dari program RISE
-              </p>
-            </div>
-
-            {/* Benefit Card 4 */}
-            <div className="bg-gray-50/50 p-6 rounded-2xl border border-gray-100/80 space-y-2">
-              <div className="flex items-center gap-2.5">
-                <Sparkles className="w-4 h-4 text-brand-orange" />
-                <h3 className="font-bold text-sm sm:text-base text-[#1E293B]">
-                  Co-branding Event
-                </h3>
-              </div>
-              <p className="text-xs text-gray-500 leading-relaxed pl-6">
-                Kolaborasi event bersama untuk engagement
-              </p>
-            </div>
-
+            ))}
           </div>
         </div>
 

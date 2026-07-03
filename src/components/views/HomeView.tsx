@@ -13,7 +13,9 @@ import cardSustain from '../../assets/images/card_sustain_1783069169650.jpg';
 import cardEmpower from '../../assets/images/card_empower_1783069183348.jpg';
 import bgVisi from '../../assets/images/bg_visi_vision_1783069996792.jpg';
 import bgMisi from '../../assets/images/bg_misi_mission_1783070009741.jpg';
-
+import academyHeroBg from '../../assets/images/academy_modern_hero_1783076485969.jpg';
+import campHeroBg from '../../assets/images/rise_camp_hero_bg_1783073952203.jpg';
+import communityHeroBg from '../../assets/images/community_hero_bg_1783074438056.jpg';
 
 interface HomeViewProps {
   onNavigate: (route: string) => void;
@@ -303,7 +305,7 @@ export function HomeView({ onNavigate, currentUser }: HomeViewProps) {
         </div>
       </section>
 
-      {/* 4. PROGRAMS OVERVIEW */}
+ {/* 4. PROGRAMS OVERVIEW */}
       <section className="py-20 px-4 bg-white">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
@@ -322,19 +324,30 @@ export function HomeView({ onNavigate, currentUser }: HomeViewProps) {
             <motion.div
               variants={itemVariants}
               onClick={() => onNavigate('/program/academy')}
-              className="bg-gradient-to-br from-[#FFF7ED] to-white border-2 border-[#ffedd5] rounded-2xl p-8 cursor-pointer flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-orange/5 group"
+              className="relative overflow-hidden bg-slate-950 rounded-2xl p-8 cursor-pointer flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-orange/10 group min-h-[320px]"
             >
-              <div>
-                <div className="w-16 h-16 bg-brand-orange rounded-2xl flex items-center justify-center mb-6 text-white shadow-md shadow-brand-orange/10">
-                  <GraduationCap className="w-8 h-8" />
+              {/* Background Image with Gradient Overlay */}
+              <div className="absolute inset-0 z-0">
+                <img 
+                  src={academyHeroBg} 
+                  alt="RISE Academy Background" 
+                  className="w-full h-full object-cover opacity-55 transition-transform duration-500 group-hover:scale-105"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-950/35"></div>
+              </div>
+
+              <div className="relative z-10">
+                <div className="w-14 h-14 bg-brand-orange rounded-2xl flex items-center justify-center mb-6 text-white shadow-md shadow-brand-orange/20">
+                  <GraduationCap className="w-7 h-7" />
                 </div>
-                <h3 className="font-bold text-xl mb-3 text-gray-900">RISE Academy</h3>
-                <p className="text-gray-500 mb-4 text-sm leading-relaxed">
+                <h3 className="font-serif font-bold text-2xl mb-3 text-white">RISE Academy</h3>
+                <p className="text-gray-200 mb-4 text-xs sm:text-sm leading-relaxed">
                   Pendidikan formal SD, SMP, SMA dengan kurikulum berkualitas dan program beasiswa.
                 </p>
               </div>
-              <span className="text-brand-orange font-semibold flex items-center gap-1 text-sm pt-2 group-hover:translate-x-1 transition-transform">
-                Selengkapnya <ArrowRight className="w-4 h-4" />
+              <span className="relative z-10 text-orange-400 font-semibold flex items-center gap-1 text-sm pt-2 group-hover:text-orange-300">
+                Selengkapnya <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </span>
             </motion.div>
 
@@ -342,22 +355,33 @@ export function HomeView({ onNavigate, currentUser }: HomeViewProps) {
             <motion.div
               variants={itemVariants}
               onClick={() => onNavigate('/program/camp')}
-              className="bg-gradient-to-br from-[#f0fdf4] to-white border-2 border-emerald-100 rounded-2xl p-8 cursor-pointer relative flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-green/5 group"
+              className="relative overflow-hidden bg-slate-950 rounded-2xl p-8 cursor-pointer flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-green/10 group min-h-[320px]"
             >
-              <span className="absolute top-4 right-4 text-xs bg-brand-green text-white px-3 py-1 rounded-full font-semibold">
+              <span className="absolute top-4 right-4 text-xs bg-brand-green text-white px-3 py-1 rounded-full font-semibold z-20 shadow-sm">
                 ★ Unggulan
               </span>
-              <div>
-                <div className="w-16 h-16 bg-brand-green rounded-2xl flex items-center justify-center mb-6 text-white shadow-md shadow-brand-green/10">
-                  <Tent className="w-8 h-8" />
+              {/* Background Image with Gradient Overlay */}
+              <div className="absolute inset-0 z-0">
+                <img 
+                  src={campHeroBg} 
+                  alt="RISE Camp Background" 
+                  className="w-full h-full object-cover opacity-55 transition-transform duration-500 group-hover:scale-105"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-950/35"></div>
+              </div>
+
+              <div className="relative z-10">
+                <div className="w-14 h-14 bg-brand-green rounded-2xl flex items-center justify-center mb-6 text-white shadow-md shadow-brand-green/20">
+                  <Tent className="w-7 h-7" />
                 </div>
-                <h3 className="font-bold text-xl mb-3 text-gray-900">RISE Camp</h3>
-                <p className="text-gray-500 mb-4 text-sm leading-relaxed">
+                <h3 className="font-serif font-bold text-2xl mb-3 text-white">RISE Camp</h3>
+                <p className="text-gray-200 mb-4 text-xs sm:text-sm leading-relaxed">
                   Pelatihan keterampilan, career development, dan kolaborasi dengan industri.
                 </p>
               </div>
-              <span className="text-brand-green font-semibold flex items-center gap-1 text-sm pt-2 group-hover:translate-x-1 transition-transform">
-                Selengkapnya <ArrowRight className="w-4 h-4" />
+              <span className="relative z-10 text-emerald-400 font-semibold flex items-center gap-1 text-sm pt-2 group-hover:text-emerald-300">
+                Selengkapnya <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </span>
             </motion.div>
 
@@ -365,19 +389,30 @@ export function HomeView({ onNavigate, currentUser }: HomeViewProps) {
             <motion.div
               variants={itemVariants}
               onClick={() => onNavigate('/program/community')}
-              className="bg-gradient-to-br from-[#FFF7ED] to-white border-2 border-[#ffedd5] rounded-2xl p-8 cursor-pointer flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-orange/5 group"
+              className="relative overflow-hidden bg-slate-950 rounded-2xl p-8 cursor-pointer flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-orange/10 group min-h-[320px]"
             >
-              <div>
-                <div className="w-16 h-16 bg-brand-orange rounded-2xl flex items-center justify-center mb-6 text-white shadow-md shadow-brand-orange/10">
-                  <Users className="w-8 h-8" />
+              {/* Background Image with Gradient Overlay */}
+              <div className="absolute inset-0 z-0">
+                <img 
+                  src={communityHeroBg} 
+                  alt="RISE Community Background" 
+                  className="w-full h-full object-cover opacity-55 transition-transform duration-500 group-hover:scale-105"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-950/35"></div>
+              </div>
+
+              <div className="relative z-10">
+                <div className="w-14 h-14 bg-brand-orange rounded-2xl flex items-center justify-center mb-6 text-white shadow-md shadow-brand-orange/20">
+                  <Users className="w-7 h-7" />
                 </div>
-                <h3 className="font-bold text-xl mb-3 text-gray-900">RISE Community</h3>
-                <p className="text-gray-500 mb-4 text-sm leading-relaxed">
+                <h3 className="font-serif font-bold text-2xl mb-3 text-white">RISE Community</h3>
+                <p className="text-gray-200 mb-4 text-xs sm:text-sm leading-relaxed">
                   Program volunteer, Brand Ambassador, dan kegiatan sosial berdampak.
                 </p>
               </div>
-              <span className="text-brand-orange font-semibold flex items-center gap-1 text-sm pt-2 group-hover:translate-x-1 transition-transform">
-                Selengkapnya <ArrowRight className="w-4 h-4" />
+              <span className="relative z-10 text-orange-400 font-semibold flex items-center gap-1 text-sm pt-2 group-hover:text-orange-300">
+                Selengkapnya <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </span>
             </motion.div>
           </motion.div>
