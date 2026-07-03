@@ -15,6 +15,7 @@ interface AuthViewProps {
 
 export function AuthView({ onNavigate, onLoginSuccess, initialMode = 'login' }: AuthViewProps) {
   const [mode, setMode] = useState<'login' | 'register'>(initialMode);
+  const API_BASE = (import.meta.env.VITE_API_URL ?? '').replace(/\/$/, '');
   
   // Forms local states
   const [email, setEmail] = useState('');
@@ -52,7 +53,7 @@ export function AuthView({ onNavigate, onLoginSuccess, initialMode = 'login' }: 
   const handleInstantLogin = async (demo: typeof DEMO_ACCOUNTS[0]) => {
     setErrorMsg('');
     try {
-      const res = await fetch('/api/auth/login', {
+      const res = await fetch(`${API_BASE || ''}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: demo.email, password: 'password123' })
@@ -80,7 +81,7 @@ export function AuthView({ onNavigate, onLoginSuccess, initialMode = 'login' }: 
       }
       
       try {
-        const res = await fetch('/api/auth/login', {
+        const res = await fetch(`${API_BASE || ''}/api/auth/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, password })
@@ -102,7 +103,7 @@ export function AuthView({ onNavigate, onLoginSuccess, initialMode = 'login' }: 
       }
 
       try {
-        const res = await fetch('/api/auth/register', {
+        const res = await fetch(`${API_BASE || ''}/api/auth/register`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ fullName, email, password, phoneNumber, role, persona })
