@@ -6,6 +6,7 @@
 import React, { useState } from 'react';
 import { BLOG_POSTS } from '../../data';
 import { BookOpen, User, Calendar, Search, ArrowLeft, ArrowRight, Share2, Facebook, Twitter, MessageSquare } from 'lucide-react';
+import blogBooksBg from '../../assets/images/blog_books_bg.jpg';
 
 interface BlogViewProps {
   onNavigate: (route: string) => void;
@@ -29,39 +30,51 @@ export function BlogView({ onNavigate }: BlogViewProps) {
   const categories = ['all', 'Kebijakan Pendidikan', 'Tips & Beasiswa'];
 
   return (
-    <div className="bg-[#FFF3E9]/30 min-h-screen py-12 font-sans">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-        
-        {/* Navigation Breadcrumb */}
-        <div className="space-y-4">
-          <nav className="flex text-xs font-mono text-brand-grey gap-2">
-            <span onClick={() => onNavigate('/')} className="hover:text-brand-orange cursor-pointer">BERANDA</span>
+    <div className="bg-[#FFF3E9]/30 min-h-screen font-sans">
+      
+      {/* HEADER BANNER with Aesthetic Books Background Image */}
+      <div className="relative py-16 px-4 overflow-hidden bg-slate-950 flex items-center min-h-[30vh]">
+        {/* Background Image with Gradient Overlay */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src={blogBooksBg} 
+            alt="Blog Background Books" 
+            className="w-full h-full object-cover object-center opacity-40 filter brightness-90"
+            referrerPolicy="no-referrer"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/70 to-slate-950/85"></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4 relative z-10 w-full text-white">
+          {/* Navigation Breadcrumb */}
+          <nav className="flex text-xs font-mono text-gray-300 gap-2">
+            <span onClick={() => onNavigate('/')} className="hover:text-brand-orange cursor-pointer transition-colors">BERANDA</span>
             <span>/</span>
             {selectedPostId ? (
               <>
-                <span onClick={() => setSelectedPostId(null)} className="hover:text-brand-orange cursor-pointer">BLOG</span>
+                <span onClick={() => setSelectedPostId(null)} className="hover:text-brand-orange cursor-pointer transition-colors">BLOG</span>
                 <span>/</span>
-                <span className="text-brand-orange font-bold">BACA POST</span>
+                <span className="text-orange-400 font-bold">BACA POST</span>
               </>
             ) : (
-              <span className="text-brand-orange font-bold">BLOG</span>
+              <span className="text-orange-400 font-bold">BLOG</span>
             )}
           </nav>
 
-          {selectedPostId ? (
+          {selectedPostId && (
             <button 
               onClick={() => setSelectedPostId(null)}
-              className="inline-flex items-center gap-2 text-xs font-semibold text-brand-orange hover:text-brand-orange/80 cursor-pointer"
+              className="inline-flex items-center gap-2 text-xs font-semibold text-orange-400 hover:text-white cursor-pointer bg-white/10 hover:bg-white/20 px-3.5 py-1.5 rounded-full border border-white/5 transition"
             >
-              <ArrowLeft className="w-4 h-4" /> Kembali ke Semua Artikel
+              <ArrowLeft className="w-3.5 h-3.5" /> Kembali ke Semua Artikel
             </button>
-          ) : null}
+          )}
 
           <div className="max-w-3xl space-y-2">
-            <h1 className="font-serif font-bold text-3xl sm:text-4xl text-brand-navy">
+            <h1 className="font-serif font-bold text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight leading-tight">
               {selectedPostId && activePost ? activePost.title : 'Warta Literasi RISE'}
             </h1>
-            <p className="text-sm text-brand-grey leading-relaxed">
+            <p className="text-xs sm:text-sm text-gray-300 leading-relaxed max-w-2xl">
               {selectedPostId && activePost 
                 ? `Ditulis oleh ${activePost.author} pada tanggal ${activePost.date} — Topik: ${activePost.category}`
                 : 'Berita resmi yayasan, opini pengamat pedagogi, laporan pertanggungjawaban dampak sponsor, serta panduan praktis beasiswa pendidikan.'
@@ -69,6 +82,9 @@ export function BlogView({ onNavigate }: BlogViewProps) {
             </p>
           </div>
         </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
 
         {/* 1. ARTICLES INDEX GRID VIEW */}
         {!selectedPostId ? (

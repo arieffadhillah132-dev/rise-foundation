@@ -5,6 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Megaphone, Heart, Users, Sparkles, Mail, Phone, ChevronDown } from 'lucide-react';
+import sponsorshipHeroBg from '../../assets/images/sponsorship_hero_bg.jpg';
 
 interface SponsorshipViewProps {
   onNavigate: (route: string) => void;
@@ -199,14 +200,25 @@ export function SponsorshipView({
   return (
     <div className="bg-white min-h-screen font-sans">
       
-      {/* HEADER BANNER (Soft Warm Tint background) */}
-      <div className="bg-[#FFF8F3] py-16 border-b border-orange-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3">
-          <h1 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-[#1E293B] tracking-tight">
+      {/* HEADER BANNER with Handshake Background Image */}
+      <div className="relative py-24 px-4 overflow-hidden bg-slate-950 flex items-center min-h-[35vh]">
+        {/* Background Image with Gradient Overlay */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src={sponsorshipHeroBg} 
+            alt="Partnership Handshake Background" 
+            className="w-full h-full object-cover object-center opacity-35 filter brightness-90"
+            referrerPolicy="no-referrer"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/70 to-slate-950/85"></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4 relative z-10 w-full text-white">
+          <h1 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight leading-tight">
             Sponsorship & Partnership
           </h1>
-          <p className="text-xs sm:text-sm text-gray-500 max-w-xl mx-auto font-sans leading-relaxed">
-            Bersama membangun masa depan pendidikan Indonesia
+          <p className="text-xs sm:text-sm text-gray-300 max-w-xl mx-auto font-sans leading-relaxed">
+            Bersama membangun masa depan pendidikan Indonesia melalui kolaborasi nyata, berdampak, dan berkelanjutan.
           </p>
         </div>
       </div>

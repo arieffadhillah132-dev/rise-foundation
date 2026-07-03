@@ -6,6 +6,10 @@
 import React, { useState } from 'react';
 import { Book, BookOpen, CheckCircle2, ChevronDown, Download, Info, X } from 'lucide-react';
 import libraryBg from '../../assets/images/library_bg_image_1783072436303.jpg';
+import coverLaskarPelangi from '../../assets/images/cover_laskar_pelangi.jpg';
+import coverAtomicHabits from '../../assets/images/cover_atomic_habits.jpg';
+import coverSapiens from '../../assets/images/cover_sapiens.jpg';
+import coverKiatBeasiswa from '../../assets/images/cover_kiat_beasiswa.jpg';
 
 interface BookItem {
   id: string;
@@ -17,6 +21,7 @@ interface BookItem {
   summary: string;
   bgColor: string;
   iconColor: string;
+  coverImage: string;
 }
 
 const BOOKS: BookItem[] = [
@@ -29,7 +34,8 @@ const BOOKS: BookItem[] = [
     formats: ['Fisik', 'E-Book'],
     summary: 'Kisah perjuangan luar biasa sepuluh anak bersemangat baja di Belitung dalam menempuh pendidikan dasar di SD Muhammadiyah dengan segala keterbatasan fasilitas sekolah. Sebuah novel legendaris yang menginspirasi jutaan pembaca tentang tekad membara, arti persahabatan sejati, dan harapan yang tak pernah padam di tengah keterbatasan ekonomi.',
     bgColor: 'bg-[#FFEBD8] border-[#FED7AA]/40',
-    iconColor: 'text-brand-orange'
+    iconColor: 'text-brand-orange',
+    coverImage: coverLaskarPelangi
   },
   {
     id: 'atomic-habits',
@@ -40,7 +46,8 @@ const BOOKS: BookItem[] = [
     formats: ['Fisik', 'E-Book'],
     summary: 'Panduan praktis berstandar ilmiah untuk mengubah hidup Anda melalui perubahan-perubahan kecil (atomic) setiap harinya. James Clear mengupas tuntas sains di balik pembentukan kebiasaan baik dan bagaimana menghilangkan kebiasaan buruk secara sistematis demi mencapai produktivitas maksimal.',
     bgColor: 'bg-[#E8FBF2] border-[#A7F3D0]/40',
-    iconColor: 'text-[#10B981]'
+    iconColor: 'text-[#10B981]',
+    coverImage: coverAtomicHabits
   },
   {
     id: 'sapiens',
@@ -51,7 +58,8 @@ const BOOKS: BookItem[] = [
     formats: ['Fisik'],
     summary: 'Sebuah narasi megah mengenai sejarah panjang umat manusia, mulai dari kera tak berarti di padang Afrika hingga menjadi penguasa planet Bumi. Buku ini memadukan sains, antropologi, dan sejarah untuk menjelaskan bagaimana tiga revolusi besar (Kognitif, Pertanian, Sains) membentuk peradaban modern kita.',
     bgColor: 'bg-[#F5F2FE] border-[#DDD6FE]/40',
-    iconColor: 'text-[#8B5CF6]'
+    iconColor: 'text-[#8B5CF6]',
+    coverImage: coverSapiens
   },
   {
     id: 'kiat-beasiswa',
@@ -62,7 +70,8 @@ const BOOKS: BookItem[] = [
     formats: ['Fisik', 'E-Book'],
     summary: 'Buku panduan taktis yang menjabarkan langkah demi langkah dalam mempersiapkan berkas administrasi beasiswa bergengsi, menulis esai motivasi (Personal Statement) yang memikat hati komite penyeleksi, serta strategi ampuh dalam memenangkan sesi wawancara yang ketat.',
     bgColor: 'bg-[#EFF6FF] border-[#BFDBFE]/40',
-    iconColor: 'text-[#2563EB]'
+    iconColor: 'text-[#2563EB]',
+    coverImage: coverKiatBeasiswa
   }
 ];
 
@@ -248,9 +257,14 @@ Selamat membaca bersama RISE Nusantara!
                 className="bg-white rounded-2xl p-4 border border-gray-100 hover:border-[#10B981]/30 shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between space-y-4 group active:scale-98"
               >
                 <div>
-                  <div className={`aspect-[4/3] rounded-xl ${book.bgColor} flex items-center justify-center border relative overflow-hidden group-hover:brightness-98 transition-all`}>
-                    <Book className={`w-10 h-10 ${book.iconColor} transition-transform group-hover:scale-110 duration-200`} />
-                    <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <div className="aspect-[3/4] rounded-xl overflow-hidden border border-gray-150 relative bg-slate-50 flex items-center justify-center shadow-sm">
+                    <img 
+                      src={book.coverImage} 
+                      alt={book.title}
+                      className="w-full h-full object-cover transition-transform group-hover:scale-105 duration-300"
+                      referrerPolicy="no-referrer"
+                    />
+                    <div className="absolute inset-0 bg-black/15 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                       <span className="text-[10px] font-extrabold text-white bg-black/75 px-3 py-1.5 rounded-lg tracking-wide uppercase">Lihat Ringkasan</span>
                     </div>
                   </div>
@@ -486,8 +500,13 @@ Selamat membaca bersama RISE Nusantara!
 
             {/* Book Header Card info */}
             <div className="flex gap-4 sm:gap-6 items-start">
-              <div className={`w-20 h-28 sm:w-24 sm:h-32 rounded-2xl ${selectedBook.bgColor} border flex items-center justify-center shrink-0`}>
-                <Book className={`w-8 h-8 sm:w-10 sm:h-10 ${selectedBook.iconColor}`} />
+              <div className="w-20 h-28 sm:w-24 sm:h-32 rounded-2xl overflow-hidden border border-gray-200/60 shrink-0 flex items-center justify-center bg-slate-50 shadow-sm">
+                <img 
+                  src={selectedBook.coverImage} 
+                  alt={selectedBook.title}
+                  className="w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                />
               </div>
               <div className="space-y-2">
                 <span className="text-[10px] font-extrabold uppercase tracking-wider font-mono text-gray-400 bg-gray-100 px-2 py-0.5 rounded">
