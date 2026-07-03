@@ -13,9 +13,17 @@ interface AuthViewProps {
   initialMode?: 'login' | 'register';
 }
 
+function normalizeApiBase(url: string) {
+  let normalized = url.trim().replace(/\/$/, '');
+  if (normalized.endsWith('/api')) {
+    normalized = normalized.replace(/\/api$/, '');
+  }
+  return normalized;
+}
+
 export function AuthView({ onNavigate, onLoginSuccess, initialMode = 'login' }: AuthViewProps) {
   const [mode, setMode] = useState<'login' | 'register'>(initialMode);
-  const API_BASE = (import.meta.env.VITE_API_URL ?? '').replace(/\/$/, '');
+  const API_BASE = normalizeApiBase(import.meta.env.VITE_API_URL ?? '');
   
   // Forms local states
   const [email, setEmail] = useState('');

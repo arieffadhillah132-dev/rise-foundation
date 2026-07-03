@@ -13,7 +13,7 @@ interface FormViewProps {
   programId: string;
   onNavigate: (route: string) => void;
   currentUser: any;
-  onAddRegistration: (programType: ProgramType, programId: string, programName: string, details: any) => void;
+  onAddRegistration: (programType: ProgramType, programId: string, programName: string, details: any) => Promise<boolean>;
 }
 
 export function FormView({ programType, programId, onNavigate, currentUser, onAddRegistration }: FormViewProps) {
@@ -112,7 +112,7 @@ export function FormView({ programType, programId, onNavigate, currentUser, onAd
     }
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!currentUser) {
       alert('Silakan Masuk Akun terlebih dahulu sebelum mendaftar program.');
@@ -174,11 +174,12 @@ export function FormView({ programType, programId, onNavigate, currentUser, onAd
       details.reason = baReason;
     }
 
-    setTimeout(() => {
-      onAddRegistration(programType, programType === 'camp_training' ? campSelectedProgram : programId, targetProgramName, details);
-      setSubmitting(false);
+    const success = await onAddRegistration(programType, programType === 'camp_training' ? campSelectedProgram : programId, targetProgramName, details);
+    setSubmitting(false);
+
+    if (success) {
       onNavigate('/dashboard');
-    }, 1200);
+    }
   };
 
   // Determine back navigation target

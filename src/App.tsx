@@ -28,8 +28,16 @@ import { FormView } from './components/views/FormView';
 import { SearchPortalView } from './components/views/SearchPortalView';
 import { DashboardView } from './components/views/DashboardView';
 
+function normalizeApiBase(url: string) {
+  let normalized = url.trim().replace(/\/$/, '');
+  if (normalized.endsWith('/api')) {
+    normalized = normalized.replace(/\/api$/, '');
+  }
+  return normalized;
+}
+
 export default function App() {
-  const API_BASE = (import.meta.env.VITE_API_URL ?? '').replace(/\/$/, '');
+  const API_BASE = normalizeApiBase(import.meta.env.VITE_API_URL ?? '');
   // 1. ROUTING STATE
   const [activeRoute, setActiveRoute] = useState<string>('/');
   // Storing form parameters
@@ -241,7 +249,10 @@ export default function App() {
 
   const handleAddRegistration = async (programType: ProgramType, programId: string, programName: string, details: any) => {
     const token = localStorage.getItem('token');
-    if (!token) return;
+    if (!token) {
+      showToast('Silakan masuk terlebih dahulu sebelum mendaftar program.', 'error');
+      return false;
+    }
 
     let url = '/api/academy/apply';
     let bodyData: any = { programId, programName, details };
@@ -267,12 +278,15 @@ export default function App() {
         const data = await res.json();
         setRegistrations(prev => [data.registration, ...prev]);
         showToast(`Registrasi Anda untuk "${programName}" berhasil dikirim! Tinjau statusnya di dashboard.`, 'success');
+        return true;
       } else {
         const errData = await res.json();
         showToast(errData.message || 'Gagal mengirim pendaftaran.', 'error');
+        return false;
       }
     } catch (err) {
       showToast('Koneksi internet bermasalah.', 'error');
+      return false;
     }
   };
 

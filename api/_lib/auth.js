@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 dotenv.config();
 
 export const JWT_SECRET = process.env.JWT_SECRET || 'rise_foundation_super_secret_jwt_key_2026';
+const DEBUG_API_ERRORS = process.env.DEBUG_API_ERRORS === 'true';
 
 export function createToken(user) {
   return jwt.sign(
@@ -78,8 +79,14 @@ export function handleApiError(res, error, fallbackMessage = 'Server error.') {
     console.error(fallbackMessage, error);
   }
 
-  return res.status(statusCode).json({
+  const body = {
     message: statusCode >= 500 ? fallbackMessage : error.message,
-    ...(process.env.NODE_ENV !== 'production' && statusCode >= 500 ? { error: error.message } : {}),
-  });
+  };
+
+  if (DEBUG_API_ERRORS && statusCode >= 500) {
+    body.error = error.message;
+    body.stack = error.stack;
+  }
+
+  return res.status(statusCode).json(body);
 }
