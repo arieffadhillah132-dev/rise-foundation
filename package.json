@@ -10,7 +10,8 @@
     "start": "node server.js",
     "start:dev": "tsx server.ts",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
+    "deploy": "vercel --prod",
+    "deploy:gh-pages": "gh-pages -d dist",
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit"

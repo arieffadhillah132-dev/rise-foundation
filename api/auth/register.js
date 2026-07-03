@@ -1,35 +1,54 @@
-import jwt from 'jsonwebtoken';
-
-const JWT_SECRET = process.env.JWT_SECRET || 'rise_foundation_super_secret_jwt_key_2026';
+import bcrypt from 'bcryptjs';
+import { createToken, handleApiError, mapUser, methodNotAllowed } from '../_lib/auth.js';
+import { ensureDatabase, getPool } from '../_lib/database.js';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
-    res.setHeader('Allow', ['POST']);
-    return res.status(405).json({ message: 'Method not allowed' });
+    return methodNotAllowed(res, ['POST']);
   }
 
   try {
+    await ensureDatabase();
+
     const { fullName, email, password, phoneNumber, role, persona } = req.body || {};
     if (!fullName || !email || !password || !phoneNumber) {
       return res.status(400).json({ message: 'All fields are required.' });
     }
 
-    // NOTE: This serverless/register implementation does NOT persist data.
-    // It's intended for demo/prototype usage on Vercel. Replace with
-    // a real DB-backed implementation for production.
+    const db = getPool();
+    const normalizedEmail = email.toLowerCase();
+    const [existing] = await db.query('SELECT id FROM users WHERE email = ?', [normalizedEmail]);
+
+    if (existing.length > 0) {
+      return res.status(400).json({ message: 'User with this email already exists.' });
+    }
 
     const id = 'usr-' + Math.random().toString(36).substr(2, 9);
+    const passwordHash = await bcrypt.hash(password, 10);
     const userRole = role || 'visitor';
     const userPersona = persona || 'siswa_sma';
 
-    const token = jwt.sign({ id, email, role: userRole, persona: userPersona, fullName }, JWT_SECRET, { expiresIn: '7d' });
+    await db.query(
+      `INSERT INTO users (id, email, password_hash, full_name, phone_number, role, persona)
+       VALUES (?, ?, ?, ?, ?, ?, ?)`,
+      [id, normalizedEmail, passwordHash, fullName, phoneNumber, userRole, userPersona],
+    );
+
+    const user = {
+      id,
+      email: normalizedEmail,
+      full_name: fullName,
+      phone_number: phoneNumber,
+      role: userRole,
+      persona: userPersona,
+    };
+    const mappedUser = mapUser(user);
 
     return res.status(201).json({
-      token,
-      user: { id, email, fullName, role: userRole, persona: userPersona, phoneNumber }
+      token: createToken(mappedUser),
+      user: mappedUser,
     });
   } catch (err) {
-    console.error('Serverless register error:', err);
-    return res.status(500).json({ message: 'Server error during registration.' });
+    return handleApiError(res, err, 'Server error during registration.');
   }
 }
