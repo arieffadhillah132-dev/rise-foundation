@@ -383,6 +383,22 @@ export default function App() {
         setRegistrations(prev => prev.map(reg => reg.id === regId ? { ...reg, status: newStatus } : reg));
         showToast(`Status berkas registrasi #${regId} berhasil diubah menjadi: ${newStatus.toUpperCase()}`, 'success');
       } else {
+        // Some hosts may reject PATCH (405). Retry with POST to the same endpoint which the server mirrors.
+        if (res.status === 405) {
+          const retry = await fetch(`${API_BASE || ''}/api/auth/registrations/${regId}/status`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ status: newStatus })
+          });
+          if (retry.ok) {
+            setRegistrations(prev => prev.map(reg => reg.id === regId ? { ...reg, status: newStatus } : reg));
+            showToast(`Status berkas registrasi #${regId} berhasil diubah menjadi: ${newStatus.toUpperCase()}`, 'success');
+            return;
+          }
+        }
         showToast('Gagal memperbarui status pendaftaran.', 'error');
       }
     } catch (err) {
@@ -408,6 +424,22 @@ export default function App() {
         setLoans(prev => prev.map(loan => loan.id === loanId ? { ...loan, status: newStatus } : loan));
         showToast(`Status peminjaman buku #${loanId} diperbarui: ${newStatus.toUpperCase()}`, 'success');
       } else {
+        // Retry with POST if server/host rejects PATCH
+        if (res.status === 405) {
+          const retry = await fetch(`${API_BASE || ''}/api/library/loans/${loanId}/status`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ status: newStatus })
+          });
+          if (retry.ok) {
+            setLoans(prev => prev.map(loan => loan.id === loanId ? { ...loan, status: newStatus } : loan));
+            showToast(`Status peminjaman buku #${loanId} diperbarui: ${newStatus.toUpperCase()}`, 'success');
+            return;
+          }
+        }
         showToast('Gagal memperbarui status peminjaman.', 'error');
       }
     } catch (err) {
@@ -458,6 +490,7 @@ export default function App() {
           initialJobId={campJobId}
           onClearInitialTrainingId={() => setCampTrainingId(null)}
           onClearInitialJobId={() => setCampJobId(null)}
+          onAddRegistration={handleAddRegistration}
         />
       );
     }

@@ -18,7 +18,9 @@ router.get('/me', authMiddleware, getMe);
 
 // Registrations handling inside core/auth routes for user dashboard
 router.get('/registrations', authMiddleware, getRegistrations);
+// Support both PATCH and POST for status updates (some hosting platforms block PATCH)
 router.patch('/registrations/:id/status', authMiddleware, adminMiddleware, updateRegistrationStatus);
+router.post('/registrations/:id/status', authMiddleware, adminMiddleware, updateRegistrationStatus);
 
 // Sponsor inquiries handling
 router.get('/inquiries', authMiddleware, adminMiddleware, getSponsorInquiries);

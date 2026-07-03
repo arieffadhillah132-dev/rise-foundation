@@ -33,6 +33,7 @@ interface CampViewProps {
   onNavigateToForm: (programType: string, programId: string) => void;
   currentUser?: any;
   onRequireLogin?: (route: string, params?: any) => void;
+  onAddRegistration?: (programType: string, programId: string, programName: string, details: any) => Promise<boolean> | void;
   initialTrainingId?: string | null;
   initialJobId?: string | null;
   onClearInitialTrainingId?: () => void;
@@ -226,6 +227,17 @@ export function CampView({
 
   const handleTrainingSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    // If a parent provided an API handler, call it so the registration is persisted
+    const details = { name: trainingName, email: trainingEmail, level: trainingLevel, reason: trainingReason };
+    if (!currentUser && onRequireLogin) {
+      onRequireLogin('/form', { trainingId: selectedTrainingId });
+      return;
+    }
+
+    if (onAddRegistration && selectedTrainingId) {
+      onAddRegistration('camp_training', selectedTrainingId, (CAMP_TRAININGS.find(t => t.id === selectedTrainingId)?.name) || 'RISE Camp Training', details);
+    }
+
     setTrainingFormSubmitted(true);
     // Reset form fields
     setTimeout(() => {
@@ -239,6 +251,18 @@ export function CampView({
 
   const handleCareerSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const details = { name: applicantName, email: applicantEmail, cvUrl: applicantCvUrl, cover: applicantCover };
+    if (!currentUser && onRequireLogin) {
+      onRequireLogin('/form', { jobId: selectedJobId });
+      return;
+    }
+
+    if (onAddRegistration && selectedJobId) {
+      // use 'volunteer' as a generic camp-related programType for job applications
+      const programName = selectedJobId || 'RISE Job Application';
+      onAddRegistration('volunteer', selectedJobId, programName, details as any);
+    }
+
     setCareerFormSubmitted(true);
     // Reset form fields
     setTimeout(() => {
