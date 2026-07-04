@@ -506,6 +506,7 @@ export function CampView({
     let jobTypeBadge = 'Full-time';
     let loc = 'Jakarta · Pendidikan · Pengalaman 2+ tahun';
     let mappingKey = 'curriculum-developer';
+    let jobImage = 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80&w=1200';
 
     if (jobId === 'curriculum-developer') {
       jobTitle = 'Curriculum Developer';
@@ -513,18 +514,21 @@ export function CampView({
       jobTypeBadge = 'Full-time';
       loc = 'Jakarta · Pendidikan · Pengalaman 2+ tahun';
       mappingKey = 'curriculum-developer';
+      jobImage = 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80&w=1200';
     } else if (jobId === 'social-media-intern') {
       jobTitle = 'Social Media Intern';
       company = 'RISE Foundation';
       jobTypeBadge = 'Magang';
       loc = 'Remote · Marketing · Mahasiswa semester 5+';
       mappingKey = 'social-media-intern';
+      jobImage = 'https://images.unsplash.com/photo-1531538606174-0f90ff5dce83?auto=format&fit=crop&q=80&w=1200';
     } else if (jobId === 'program-assistant-intern') {
       jobTitle = 'Program Assistant Intern';
       company = 'RISE Foundation';
       jobTypeBadge = 'Magang';
       loc = 'Bandung · Operations · Mahasiswa semester 4+';
       mappingKey = 'program-assistant-intern';
+      jobImage = 'https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&q=80&w=1200';
     }
 
     const jobData = careerDetailsMap[mappingKey] || {
@@ -536,11 +540,20 @@ export function CampView({
     return (
       <div className="font-sans bg-white pb-16">
         {/* Header section */}
-        <section className="bg-gradient-to-br from-green-50 to-white py-12 px-4 relative overflow-hidden border-b border-gray-100">
+        <section className="relative bg-slate-950 py-16 px-4 overflow-hidden border-b border-gray-800">
+          <div className="absolute inset-0 z-0">
+            <img 
+              src={jobImage} 
+              alt={jobTitle} 
+              className="w-full h-full object-cover opacity-45"
+              referrerPolicy="no-referrer"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/75 to-slate-950/30"></div>
+          </div>
           <div className="max-w-6xl mx-auto relative z-10">
             <button 
               onClick={() => setSelectedJobId(null)} 
-              className="flex items-center gap-2 text-brand-orange mb-6 hover:underline font-medium text-sm cursor-pointer"
+              className="flex items-center gap-2 text-orange-400 mb-6 hover:text-orange-300 font-medium text-sm cursor-pointer transition-colors"
             >
               <ArrowLeft className="w-4 h-4" /> Kembali ke Karir
             </button>
@@ -548,8 +561,8 @@ export function CampView({
               <span className="text-xs bg-brand-orange text-white px-3 py-1 rounded-full font-medium">{company}</span>
               <span className="text-xs bg-emerald-50 text-brand-green border border-emerald-100 px-3 py-1 rounded-full font-semibold">{jobTypeBadge}</span>
             </div>
-            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-gray-900 mb-2">{jobTitle}</h1>
-            <p className="text-gray-600 text-sm leading-relaxed max-w-2xl">{loc}</p>
+            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-white mb-2">{jobTitle}</h1>
+            <p className="text-gray-200 text-sm leading-relaxed max-w-2xl">{loc}</p>
           </div>
         </section>
 
