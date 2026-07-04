@@ -4,6 +4,7 @@
  */
 
 import React, { useState } from 'react';
+import { ProgramType } from '../../types';
 import { CAMP_TRAININGS, CAREERS } from '../../data';
 import campHeroBg from '../../assets/images/rise_camp_hero_bg_1783073952203.jpg';
 import englishBg from '../../assets/images/camp_english_bg_1783073965741.jpg';
@@ -33,6 +34,7 @@ interface CampViewProps {
   onNavigateToForm: (programType: string, programId: string) => void;
   currentUser?: any;
   onRequireLogin?: (route: string, params?: any) => void;
+  onAddRegistration?: (programType: ProgramType, programId: string, programName: string, details: any) => Promise<boolean> | void;
   initialTrainingId?: string | null;
   initialJobId?: string | null;
   onClearInitialTrainingId?: () => void;
@@ -44,6 +46,7 @@ export function CampView({
   onNavigateToForm, 
   currentUser, 
   onRequireLogin, 
+  onAddRegistration,
   initialTrainingId, 
   initialJobId,
   onClearInitialTrainingId,
