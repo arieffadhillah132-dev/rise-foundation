@@ -4,7 +4,6 @@
  */
 
 import React, { useState } from 'react';
-import { ProgramType } from '../../types';
 import { CAMP_TRAININGS, CAREERS } from '../../data';
 import campHeroBg from '../../assets/images/rise_camp_hero_bg_1783073952203.jpg';
 import englishBg from '../../assets/images/camp_english_bg_1783073965741.jpg';
@@ -34,7 +33,6 @@ interface CampViewProps {
   onNavigateToForm: (programType: string, programId: string) => void;
   currentUser?: any;
   onRequireLogin?: (route: string, params?: any) => void;
-  onAddRegistration?: (programType: ProgramType, programId: string, programName: string, details: any) => Promise<boolean> | void;
   initialTrainingId?: string | null;
   initialJobId?: string | null;
   onClearInitialTrainingId?: () => void;
@@ -46,7 +44,6 @@ export function CampView({
   onNavigateToForm, 
   currentUser, 
   onRequireLogin, 
-  onAddRegistration,
   initialTrainingId, 
   initialJobId,
   onClearInitialTrainingId,
@@ -229,17 +226,6 @@ export function CampView({
 
   const handleTrainingSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // If a parent provided an API handler, call it so the registration is persisted
-    const details = { name: trainingName, email: trainingEmail, level: trainingLevel, reason: trainingReason };
-    if (!currentUser && onRequireLogin) {
-      onRequireLogin('/form', { trainingId: selectedTrainingId });
-      return;
-    }
-
-    if (onAddRegistration && selectedTrainingId) {
-      onAddRegistration('camp_training', selectedTrainingId, (CAMP_TRAININGS.find(t => t.id === selectedTrainingId)?.name) || 'RISE Camp Training', details);
-    }
-
     setTrainingFormSubmitted(true);
     // Reset form fields
     setTimeout(() => {
@@ -253,18 +239,6 @@ export function CampView({
 
   const handleCareerSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const details = { name: applicantName, email: applicantEmail, cvUrl: applicantCvUrl, cover: applicantCover };
-    if (!currentUser && onRequireLogin) {
-      onRequireLogin('/form', { jobId: selectedJobId });
-      return;
-    }
-
-    if (onAddRegistration && selectedJobId) {
-      // use 'volunteer' as a generic camp-related programType for job applications
-      const programName = selectedJobId || 'RISE Job Application';
-      onAddRegistration('volunteer', selectedJobId, programName, details as any);
-    }
-
     setCareerFormSubmitted(true);
     // Reset form fields
     setTimeout(() => {
@@ -387,7 +361,7 @@ export function CampView({
                 </div>
                 <div>
                   <p className="text-xs text-gray-400 uppercase font-bold tracking-wider mb-1 font-mono">MENTOR</p>
-                  <p className="font-semibold text-gray-900 text-sm truncate" title={mentor}>{(mentor || '').split(' ')[0]} {(mentor || '').split(' ')[1] || ''}</p>
+                  <p className="font-semibold text-gray-900 text-sm truncate" title={mentor}>{mentor.split(' ')[0]} {mentor.split(' ')[1] || ''}</p>
                 </div>
                 <div>
                   <p className="text-xs text-gray-400 uppercase font-bold tracking-wider mb-1 font-mono">SERTIFIKAT</p>
@@ -854,7 +828,7 @@ export function CampView({
                 <span className="text-2xl">🎨</span>
                 <div>
                   <h4 className="font-semibold text-gray-900 text-sm">UI/UX Design</h4>
-                  <p className="text-xs text-gray-500">Mulai Maret 2027</p>
+                  <p className="text-xs text-gray-500">Mulai Maret 2025</p>
                 </div>
               </div>
 
@@ -863,7 +837,7 @@ export function CampView({
                 <span className="text-2xl">📊</span>
                 <div>
                   <h4 className="font-semibold text-gray-900 text-sm">Data Analytics</h4>
-                  <p className="text-xs text-gray-500">Mulai April 2027</p>
+                  <p className="text-xs text-gray-500">Mulai April 2025</p>
                 </div>
               </div>
 
@@ -949,59 +923,71 @@ export function CampView({
             <h2 className="font-bold text-2xl mb-2 text-gray-900">Career</h2>
             <p className="text-gray-600 text-sm mb-6">Lowongan pekerjaan dan magang di RISE Foundation</p>
             
-            <div className="space-y-4">
-              
-              {/* Job 1 */}
-              <div className="border border-gray-200 rounded-xl p-5 hover:shadow-md transition flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-white">
-                <div className="space-y-1.5">
-                  <span className="text-[10px] bg-emerald-50 text-brand-green border border-emerald-100 px-2.5 py-0.5 rounded-full font-semibold">
-                    Full-time
-                  </span>
-                  <h4 className="font-bold text-base text-gray-900">Curriculum Developer</h4>
-                  <p className="text-xs text-gray-500">Jakarta · Pendidikan · Pengalaman 2+ tahun</p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                {
+                  id: 'curriculum-developer',
+                  title: 'Curriculum Developer',
+                  badge: 'Full-time',
+                  badgeColor: 'bg-emerald-50 text-brand-green border-emerald-100',
+                  loc: 'Jakarta · Pendidikan · Pengalaman 2+ tahun',
+                  desc: 'Merancang dan mengevaluasi peta jalan kurikulum pembelajaran inovatif serta mempersiapkan modul ajar interaktif.',
+                  image: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80&w=600',
+                },
+                {
+                  id: 'social-media-intern',
+                  title: 'Social Media Intern',
+                  badge: 'Magang',
+                  badgeColor: 'bg-blue-50 text-blue-600 border-blue-100',
+                  loc: 'Remote · Marketing · Mahasiswa semester 5+',
+                  desc: 'Mendesain konten kreatif visual di Canva/Figma, mengelola postingan media sosial, serta menganalisis tren engagement harian.',
+                  image: 'https://images.unsplash.com/photo-1531538606174-0f90ff5dce83?auto=format&fit=crop&q=80&w=600',
+                },
+                {
+                  id: 'program-assistant-intern',
+                  title: 'Program Assistant Intern',
+                  badge: 'Magang',
+                  badgeColor: 'bg-blue-50 text-blue-600 border-blue-100',
+                  loc: 'Bandung · Operations · Mahasiswa semester 4+',
+                  desc: 'Mendokumentasikan aktivitas belajar harian siswa, memfasilitasi kebutuhan logistik operasional kelas, dan merapikan administrasi.',
+                  image: 'https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&q=80&w=600',
+                },
+              ].map((job) => (
+                <div key={job.id} className="border border-gray-150 rounded-2xl overflow-hidden shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-orange/5 group flex flex-col justify-between bg-white">
+                  <div>
+                    <div className="h-44 relative overflow-hidden">
+                      <img 
+                        src={job.image} 
+                        alt={job.title} 
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        referrerPolicy="no-referrer"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                    </div>
+                    <div className="p-5 space-y-2.5">
+                      <div className="flex items-center gap-2">
+                        <span className={`text-[10px] ${job.badgeColor} border px-2.5 py-0.5 rounded-full font-semibold`}>
+                          {job.badge}
+                        </span>
+                        <span className="text-[10px] text-gray-400 font-mono">RISE Foundation</span>
+                      </div>
+                      <h3 className="font-serif font-bold text-lg text-gray-900 leading-snug group-hover:text-brand-orange transition-colors">
+                        {job.title}
+                      </h3>
+                      <p className="text-[11px] text-brand-orange font-medium font-sans">{job.loc}</p>
+                      <p className="text-xs text-gray-500 leading-relaxed font-sans">{job.desc}</p>
+                    </div>
+                  </div>
+                  <div className="p-5 pt-0">
+                    <button 
+                      onClick={() => handleSelectJob(job.id)}
+                      className="w-full py-2.5 bg-brand-orange text-white rounded-xl font-semibold hover:bg-[#EA580C] transition text-sm cursor-pointer shadow-md shadow-brand-orange/10"
+                    >
+                      Lamar Sekarang
+                    </button>
+                  </div>
                 </div>
-                <button 
-                  onClick={() => handleSelectJob('curriculum-developer')}
-                  className="px-6 py-2 bg-brand-orange text-white rounded-lg font-medium hover:bg-[#EA580C] transition text-sm cursor-pointer whitespace-nowrap"
-                >
-                  Lamar
-                </button>
-              </div>
-
-              {/* Job 2 */}
-              <div className="border border-gray-200 rounded-xl p-5 hover:shadow-md transition flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-white">
-                <div className="space-y-1.5">
-                  <span className="text-[10px] bg-blue-50 text-blue-600 border border-blue-100 px-2.5 py-0.5 rounded-full font-semibold">
-                    Magang
-                  </span>
-                  <h4 className="font-bold text-base text-gray-900">Social Media Intern</h4>
-                  <p className="text-xs text-gray-500">Remote · Marketing · Mahasiswa semester 5+</p>
-                </div>
-                <button 
-                  onClick={() => handleSelectJob('social-media-intern')}
-                  className="px-6 py-2 bg-brand-orange text-white rounded-lg font-medium hover:bg-[#EA580C] transition text-sm cursor-pointer whitespace-nowrap"
-                >
-                  Lamar
-                </button>
-              </div>
-
-              {/* Job 3 */}
-              <div className="border border-gray-200 rounded-xl p-5 hover:shadow-md transition flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-white">
-                <div className="space-y-1.5">
-                  <span className="text-[10px] bg-blue-50 text-blue-600 border border-blue-100 px-2.5 py-0.5 rounded-full font-semibold">
-                    Magang
-                  </span>
-                  <h4 className="font-bold text-base text-gray-900">Program Assistant Intern</h4>
-                  <p className="text-xs text-gray-500">Bandung · Operations · Mahasiswa semester 4+</p>
-                </div>
-                <button 
-                  onClick={() => handleSelectJob('program-assistant-intern')}
-                  className="px-6 py-2 bg-brand-orange text-white rounded-lg font-medium hover:bg-[#EA580C] transition text-sm cursor-pointer whitespace-nowrap"
-                >
-                  Lamar
-                </button>
-              </div>
-
+              ))}
             </div>
           </div>
 
